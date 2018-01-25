@@ -1,0 +1,23 @@
+
+{
+    "bridge": {
+        "name": "Trådfri",
+        "username": "CE:22:3D:E3:CE:57",
+        "port": 51826,
+        "pin": "031-45-266"
+    },
+
+    "description": "This is an example configuration file",
+
+    "platforms": [
+        {
+            "platform": "Ikea Trådfri Gateway",
+            "name": "Ikea Trådfri Gateway",
+            "psk" : "xxxxxxx"
+
+
+        }
+    ]
+
+
+}

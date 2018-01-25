@@ -1,0 +1,36 @@
+{
+  "name": "homebridge-ikea-tradfri-gateway",
+  "version": "1.0.0",
+  "description": "homebridge-ikea-tradfri-gateway",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meg768/homebridge-ikea-tradfri-gateway.git"
+  },
+  "keywords": [
+    "homebrige",
+    "ikea",
+    "tradfri",
+    "trådfri",
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "node-tradfri-client": "^0.6.0",
+    "yow": "^1.0.85"
+  }
+  
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meg768/homebridge-ikea-tradfri-gateway/issues"
+  },
+  "homepage": "https://github.com/meg768/homebridge-ikea-tradfri-gateway#readme"
+}
