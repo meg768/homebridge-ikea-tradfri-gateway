@@ -23,7 +23,6 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
 
     deviceChanged(device) {
         super.deviceChanged();
-
         this.updateColorTemperature();
     }
 
@@ -54,13 +53,17 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
     }
 
     setColorTemperature(value, callback) {
-        this.log('Setting color temperature to %s on lightbulb \'%s\'', value, this.name);
 
-        this.colorTemperature = Math.max(Math.min(value, COLOR_MAX), COLOR_MIN);
+        // Make sure it is between MIN and MAX
+        value = Math.max(Math.min(value, COLOR_MAX), COLOR_MIN);
 
-        var percent = 100 * (this.colorTemperature - COLOR_MIN) / (COLOR_MAX - COLOR_MIN);
+        // Set value
+        this.colorTemperature = value;
 
-        this.log('Adjusted value is %s', percent);
+        // Compute color temperature in percent (0-100)
+        var percent = parseInt(100 * (this.colorTemperature - COLOR_MIN) / (COLOR_MAX - COLOR_MIN));
+
+        this.log('Setting color temperature to %s%% on lightbulb \'%s\'', percent, this.name);
 
         this.platform.tradfri.operateLight(this.device, {
             colorTemperature: percent

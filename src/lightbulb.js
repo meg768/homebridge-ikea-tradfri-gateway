@@ -45,7 +45,7 @@ module.exports = class Switch extends Accessory {
     }
 
     setBrightness(value, callback) {
-        this.log('Setting brightness to %s', value);
+        this.log('Setting brightness to %s on lightbulb \'%s\'', value, this.name);
         this.brightness = value;
 
         this.platform.tradfri.operateLight(this.device, {
