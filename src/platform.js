@@ -88,7 +88,7 @@ module.exports = class Platform  {
                 if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
                     if (this.items[device.instanceId] == undefined) {
-                        this.log('Creating accessory %s...', device.name);
+                        this.log('Creating accessory \'%s\'...', device.name);
 
                         timestamp = new Date();
                         var bulb = undefined;

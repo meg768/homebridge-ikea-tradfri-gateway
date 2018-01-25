@@ -83,7 +83,7 @@ module.exports = class Switch extends Accessory {
     }
 
     setPower(value, callback) {
-        this.log('Setting power to %s on lightbulb \'%s\'', value, this.name);
+        this.log('Setting power to %s on lightbulb \'%s\'', value ? 'ON' : 'OFF', this.name);
         this.power = value;
 
         this.platform.tradfri.operateLight(this.device, {
@@ -102,7 +102,7 @@ module.exports = class Switch extends Accessory {
 
         this.power = light.onOff;
 
-        this.log('Updating power to %s on lightbulb \'%s\'', this.power, this.name);
+        this.log('Updating power to %s on lightbulb \'%s\'', this.power ? 'ON' : 'OFF', this.name);
         power.updateValue(this.power);
     }
 
