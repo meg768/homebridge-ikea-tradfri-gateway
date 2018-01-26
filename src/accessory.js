@@ -75,7 +75,6 @@ module.exports = class Accessory extends Events {
         var services = [];
 
         for (var id in this.services) {
-            console.log('GETTING!', id)
             services.push(this.services[id]);
         }
 

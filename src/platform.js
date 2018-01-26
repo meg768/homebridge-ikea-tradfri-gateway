@@ -28,7 +28,7 @@ module.exports = class Platform  {
         this.log            = log;
         this.homebridge     = homebridge;
         this.tradfri        = new Ikea.TradfriClient(config.host);
-        this.items          = {};
+        this.devices        = {};
         this.timestamp      = new Date();
 
         Accessory = homebridge.platformAccessory;
@@ -50,6 +50,7 @@ module.exports = class Platform  {
 
 
         this.homebridge.on('didFinishLaunching', () => {
+            this.log('didFinishLaunching');
         });
 
         if (process.env.IKEA_TRADFRI_PSK)
@@ -68,11 +69,20 @@ module.exports = class Platform  {
 
     connect() {
         return new Promise((resolve, reject) => {
-            this.tradfri.connect(this.config.identity, this.config.psk).then((connected) => {
+            this.log('Connecting...');
+            this.tradfri.connect(this.config.identity, this.config.psk + 'X').then((connected) => {
                 if (connected)
-                    resolve();
+                    return Promise.resolve();
                 else
                     reject(new Error('Could not connect.'));
+            })
+            .then(() => {
+                this.log('Loading devices...');
+                return this.tradfri.observeDevices();
+            })
+            .then(() => {
+                this.log('Done.');
+                resolve();
             })
             .catch((error) => {
                 reject(error);
@@ -81,80 +91,67 @@ module.exports = class Platform  {
     }
 
 
-    enableListeners() {
 
+
+
+    setup() {
         return new Promise((resolve, reject) => {
-            var timestamp = new Date();
-            var timeout = undefined;
+            for (var id in this.tradfri.devices) {
+                var device = this.tradfri.devices[id];
 
-            this.tradfri.on("device updated", (device) => {
                 if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
-                    if (this.items[device.instanceId] == undefined) {
-                        this.log('Creating accessory \'%s\'...', device.name);
+                    this.log('Creating accessory \'%s\'...', device.name);
 
-                        timestamp = new Date();
-                        var bulb = undefined;
+                    var bulb = undefined;
 
-                        switch(device.lightList[0]._spectrum) {
-                            case 'white': {
-                                bulb = new WarmWhiteLightbulb(this, device);
-                                break;
-                            }
-                            default: {
-                                bulb = new Lightbulb(this, device);
-                                break;
-                            }
+                    switch(device.lightList[0]._spectrum) {
+                        case 'white': {
+                            bulb = new WarmWhiteLightbulb(this, device);
+                            break;
                         }
-
-                        this.items[device.instanceId] = bulb;
+                        default: {
+                            bulb = new Lightbulb(this, device);
+                            break;
+                        }
                     }
 
-                    this.items[device.instanceId].emit('changed', device);
+                    this.devices[device.instanceId] = bulb;
+                    this.devices[device.instanceId].emit('changed', device);
                 }
-                else {
-                }
+            }
 
+            this.tradfri.on("device updated", (device) => {
+                if (this.devices[device.instanceId] != undefined)
+                    this.devices[device.instanceId].emit('changed', device);
             });
 
-            this.tradfri.observeDevices();
-
-            this.log('Waiting for more devices to show up...');
-
-            timeout = setInterval(() => {
-                var now = new Date();
-                if (now - timestamp > 2000) {
-                    this.log('Done.');
-                    clearInterval(timeout);
-                    resolve();
-                }
-            }, 500);
-
+            resolve();
         });
 
+
     }
-
-
 
     accessories(callback) {
 
         this.connect().then(() => {
-            return this.enableListeners();
+            return this.setup();
         })
         .then(() => {
             var accessories = [];
 
-            for (var id in this.items) {
-                accessories.push(this.items[id]);
+            for (var id in this.devices) {
+                accessories.push(this.devices[id]);
             }
 
-            this.log('Found %d accessories.', accessories.length);
             callback(accessories);
         })
         .catch((error) => {
-            this.log(error);
-            callback([]);
-
+            // Display error and make sure to stop.
+            // If we just return an empty array, all our automation
+            // rules and scenarios will be removed from the Home App.
+            console.log(error);
+            throw error;
         })
 
 
