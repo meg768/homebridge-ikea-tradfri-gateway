@@ -72,7 +72,7 @@ Gateway and exposes them to HomeKit and you have the ability to turn the
 bulbs on or off. And, of course, you may change the device names and
 group them into rooms on your iPhone or iPad.
 
-The following IKEA lighbulbs supported
+The following IKEA lighbulbs are supported
 
 - Standard white bulbs
 - Warm white bulbs with temperature control
