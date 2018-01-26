@@ -1,11 +1,8 @@
 "use strict";
-var Device = require('./device.js');
-var sprintf = require('yow/sprintf');
+var sprintf  = require('yow/sprintf');
 var isString = require('yow/is').isString;
 var isNumber = require('yow/is').isNumber;
-var Timer = require('yow/timer');
-
-
+var Device   = require('./device.js');
 
 module.exports = class Lightbulb extends Device {
 
