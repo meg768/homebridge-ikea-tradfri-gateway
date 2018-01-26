@@ -26,8 +26,9 @@ to work correctly in the TRADFRI app and work with the Apple Home app.
 It will probably work for any version between 1.1.0015 and less than 1.2.42.
 
 The problem is that the gateway automatically updates to the
-latest version if you do not block it. Here is a solution to
-[that](https://www.reddit.com/r/tradfri/comments/7p80wd/new_firmware_1314_megathread_issues_fixes_bugs/dshxwm2).
+latest version if you do not block it.
+[Here](https://www.reddit.com/r/tradfri/comments/7p80wd/new_firmware_1314_megathread_issues_fixes_bugs/dshxwm2)
+is a solution to that.
 
 Things will of course change in the future and hopefully this plugin
 will be obsolete some day.
