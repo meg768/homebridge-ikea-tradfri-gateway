@@ -39,15 +39,6 @@ module.exports = class Platform  {
         // Load .env
         require('dotenv').config({path: Path.join(process.env.HOME, '.homebridge/.env')});
 
-        if (process.env.PUSHOVER_USER && process.env.PUSHOVER_TOKEN) {
-            this.log('Using Pushover credentials from .env');
-
-            config.pushover = {
-                user: process.env.PUSHOVER_USER,
-                token: process.env.PUSHOVER_TOKEN
-            };
-        }
-
 
         this.homebridge.on('didFinishLaunching', () => {
             this.log('didFinishLaunching');
