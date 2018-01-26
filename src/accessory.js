@@ -26,6 +26,9 @@ module.exports = class Accessory extends Events {
         if (device.deviceInfo.modelNumber)
             service.setCharacteristic(this.Characteristic.Model, device.deviceInfo.modelNumber);
 
+        if (device.deviceInfo.firmwareVersion)
+            service.setCharacteristic(this.Characteristic.FirmwareRevision, device.deviceInfo.firmwareVersion);
+
         if (device.deviceInfo.serialNumber)
             service.setCharacteristic(this.Characteristic.SerialNumber, device.instanceId);
 
@@ -46,7 +49,6 @@ module.exports = class Accessory extends Events {
     addService(service) {
         this.services.push(service);
     }
-
 
     identify(callback) {
         this.log('Identify called for accessory \'%s\'.', this.name);

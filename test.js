@@ -26,7 +26,7 @@ tradfri.connect('Client_identity', process.env.IKEA_TRADFRI_PSK).then((kalle) =>
             // remember it
             console.log(device.name, device.instanceId); //, device.client.devices);
             console.log('*********************************');
-            console.log(device.lightList[0]); //, device.client.devices);
+            console.log(device); //, device.client.devices);
             console.log('*********************************');
         }
     }

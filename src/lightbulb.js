@@ -1,9 +1,9 @@
 "use strict";
 var Accessory = require('./accessory.js');
-var sprintf   = require('yow/sprintf');
-var isString  = require('yow/is').isString;
-var isNumber  = require('yow/is').isNumber;
-var Timer     = require('yow/timer');
+var sprintf = require('yow/sprintf');
+var isString = require('yow/is').isString;
+var isNumber = require('yow/is').isNumber;
+var Timer = require('yow/timer');
 
 
 
@@ -28,6 +28,7 @@ module.exports = class Switch extends Accessory {
     addCharacteristics() {
         this.enablePower();
         this.enableBrightness();
+        this.enableStatus();
     }
 
     enableBrightness() {
@@ -44,17 +45,26 @@ module.exports = class Switch extends Accessory {
         });
     }
 
+    enableStatus() {
+        this.lightbulb.addCharacteristic(this.Characteristic.StatusActive);
+        this.lightbulb.setCharacteristic(this.Characteristic.StatusActive, this.device.alive);
+
+        this.lightbulb.getCharacteristic(this.Characteristic.StatusActive).on('get', (callback) => {
+            callback(null, this.device.alive);
+        });
+    }
+
     setBrightness(value, callback) {
         this.log('Setting brightness to %s on lightbulb \'%s\'', value, this.name);
         this.brightness = value;
 
         this.platform.tradfri.operateLight(this.device, {
-            dimmer: this.brightness
-        })
-        .then(() => {
-            if (callback)
-                callback();
-        });
+                dimmer: this.brightness
+            })
+            .then(() => {
+                if (callback)
+                    callback();
+            });
     }
 
     updateBrightness() {
@@ -87,12 +97,12 @@ module.exports = class Switch extends Accessory {
         this.power = value;
 
         this.platform.tradfri.operateLight(this.device, {
-            onOff: this.power
-        })
-        .then(() => {
-            if (callback)
-                callback();
-        })
+                onOff: this.power
+            })
+            .then(() => {
+                if (callback)
+                    callback();
+            })
 
     }
 

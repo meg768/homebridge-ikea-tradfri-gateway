@@ -2,9 +2,9 @@
 {
     "bridge": {
         "name": "Trådfri",
-        "username": "CE:22:3D:E3:CE:57",
+        "username": "AA:22:3D:E3:CE:57",
         "port": 51826,
-        "pin": "031-45-266"
+        "pin": "031-45-123"
     },
 
     "description": "This is an example configuration file",
@@ -13,9 +13,8 @@
         {
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
+            "host": "gw-b8d7af2a9d45",
             "psk" : "xxxxxxx"
-
-
         }
     ]
 
