@@ -80,3 +80,10 @@ The following IKEA lighbulbs are supported
 
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
+
+
+## To Do
+
+* Find out gateway version and act accordingly
+* Support RGB bulbs
+* Support motion sensors and remote controls if possible
