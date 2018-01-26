@@ -23,6 +23,7 @@ allow you to add remote controls or dimmers to the
 TRADFRI app (at least in the iOS version) so this plugin
 was designed for gateway version 1.1.0015 to both be able
 to work correctly in the TRADFRI app and work with the Apple Home app.
+It will probably work for any version between 1.1.0015 and less than 1.2.42.
 
 Things will of course change in the future...
 
