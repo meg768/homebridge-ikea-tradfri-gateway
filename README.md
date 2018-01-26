@@ -13,7 +13,7 @@ Try them out before you decide.
 This plugin uses an excellent npm module
 [node-tradfri-client](https://www.npmjs.com/package/node-tradfri-client)
 from
-from [alcalzone](https://www.npmjs.com/~alcalzone)
+[alcalzone](https://www.npmjs.com/~alcalzone)
 that does not require any other components to be installed and works on multiple
 platforms.
 
