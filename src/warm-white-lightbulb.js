@@ -20,7 +20,7 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
         this.enableColorTemperature();
     }
 
-    deviceChanged(device) {
+    deviceChanged() {
         super.deviceChanged();
         this.updateColorTemperature();
     }

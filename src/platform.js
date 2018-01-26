@@ -61,7 +61,7 @@ module.exports = class Platform  {
     connect() {
         return new Promise((resolve, reject) => {
             this.log('Connecting...');
-            this.tradfri.connect(this.config.identity, this.config.psk + 'X').then((connected) => {
+            this.tradfri.connect(this.config.identity, this.config.psk).then((connected) => {
                 if (connected)
                     return Promise.resolve();
                 else
@@ -80,9 +80,6 @@ module.exports = class Platform  {
             })
         });
     }
-
-
-
 
 
     setup() {
