@@ -2,17 +2,20 @@
 
 Yet another HomeBridge plugin for the IKEA Trådfri Gateway.
 
-There are several other good npm modules that connect to the IKEA Trådfri Gateway.
+There are several other great npm modules that connect to the IKEA Trådfri Gateway.
 
 * [homebridge-tradfri-plugin](https://www.npmjs.com/package/homebridge-tradfri-plugin)
 * [homebridge-tradfri](https://www.npmjs.com/package/homebridge-tradfri)
 * [homebridge-ikea](https://www.npmjs.com/package/homebridge-ikea)
 
-Try them out.
+Try them out before you decide.
 
 This plugin uses an excellent npm module
 [node-tradfri-client](https://www.npmjs.com/package/node-tradfri-client)
-that does not require any other components to be installed.
+from
+from [alcalzone](https://www.npmjs.com/~alcalzone)
+that does not require any other components to be installed and works on multiple
+platforms.
 
 NOTE (2018-01-26) - This does not work with the latest firmware update
 of the Trådfri Gateway. As of now, the latest version does not
