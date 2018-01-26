@@ -1,8 +1,9 @@
 # homebridge-ikea-tradfri-gateway
 
-A HomeBridge plugin for the IKEA Trådfri Gateway.
+Yet another HomeBridge plugin for the IKEA Trådfri Gateway.
 
-There are several other npm modules that connect to the IKEA Trådfri Gateway
+There are several other good npm modules that connect to the IKEA Trådfri Gateway.
+
 * [homebridge-tradfri-plugin](https://www.npmjs.com/package/homebridge-tradfri-plugin)
 * [homebridge-tradfri](https://www.npmjs.com/package/homebridge-tradfri)
 * [homebridge-ikea](https://www.npmjs.com/package/homebridge-ikea)
