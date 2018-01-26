@@ -2,6 +2,19 @@
 
 A HomeBridge plugin for the IKEA Trådfri Gateway.
 
+There are several other npm modules that connect to the IKEA Trådfri Gateway like
+[homebridge-tradfri-plugin](https://www.npmjs.com/package/homebridge-tradfri-plugin),
+[homebridge-tradfri](https://www.npmjs.com/package/homebridge-tradfri) and
+[homebridge-ikea](https://www.npmjs.com/package/homebridge-ikea)
+but they all rely on a command based tool that fetches information
+from the gateway. If you use your remote control to turn on or off your
+lightbulbs, the Home App does not get notified by the change.
+
+This plugin uses
+[node-tradfri-client](https://www.npmjs.com/package/node-tradfri-client)
+that does not require installed command line tools
+and also notifies the Home app of all changes as they occur.
+
 NOTE (2018-01-26) - This does not work with the latest firmware update
 of the Trådfri Gateway. As of now, the latest version does not
 allow you to add remote controls or dimmers to the
