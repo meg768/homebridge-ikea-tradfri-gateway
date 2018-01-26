@@ -1,53 +1,69 @@
 "use strict";
 
-var Events  = require('events');
+var Events = require('events');
+
 
 module.exports = class Accessory extends Events {
 
-    constructor(platform, device) {
+    constructor(platform, name, id) {
 
         super();
 
-        this.device = device;
-        this.uuid = platform.homebridge.hap.uuid.generate(Number(device.instanceId).toString());
-        this.name = device.name;
-        this.log = platform.log;
+        this.name = name;
+        this.id = id;
         this.platform = platform;
+        this.uuid = this.generateUUID(id);
+        this.log = platform.log;
         this.homebridge = platform.homebridge;
         this.Characteristic = platform.homebridge.hap.Characteristic;
         this.Service = platform.homebridge.hap.Service;
-        this.services = [];
+        this.services = {};
+    }
 
+    generateUUID(id) {
+        return this.platform.homebridge.hap.uuid.generate(id.toString());
+    }
+
+    addAccessoryInformation() {
         var service = new this.Service.AccessoryInformation();
 
-        if (device.deviceInfo.manufacturer)
-            service.setCharacteristic(this.Characteristic.Manufacturer, device.deviceInfo.manufacturer);
+        var manufacturer = this.getManufacturer();
+        var model = this.getModel();
+        var firmwareVersion = this.getFirmwareVersion();
+        var serialNumber = this.getSerialNumber();
 
-        if (device.deviceInfo.modelNumber)
-            service.setCharacteristic(this.Characteristic.Model, device.deviceInfo.modelNumber);
+        if (manufacturer)
+            service.setCharacteristic(this.Characteristic.Manufacturer, manufacturer);
 
-        if (device.deviceInfo.firmwareVersion)
-            service.setCharacteristic(this.Characteristic.FirmwareRevision, device.deviceInfo.firmwareVersion);
+        if (model)
+            service.setCharacteristic(this.Characteristic.Model, model);
 
-        if (device.deviceInfo.serialNumber)
-            service.setCharacteristic(this.Characteristic.SerialNumber, device.instanceId);
+        if (firmwareVersion)
+            service.setCharacteristic(this.Characteristic.FirmwareRevision, firmwareVersion);
 
-        this.on('changed', (device) => {
-            this.device = device;
-            this.deviceChanged();
+        if (serialNumber)
+            service.setCharacteristic(this.Characteristic.SerialNumber, serialNumber);
 
-        });
 
-        this.addService(service);
-
-    }
-
-    deviceChanged() {
+        this.addService('deviceInfo', service);
 
     }
 
-    addService(service) {
-        this.services.push(service);
+    getManufacturer() {
+    }
+
+    getModel() {
+    }
+
+    getFirmwareVersion() {
+    }
+
+    getSerialNumber() {
+        return this.id;
+    }
+
+    addService(name, service) {
+        this.services[name] = service;
     }
 
     identify(callback) {
@@ -56,7 +72,14 @@ module.exports = class Accessory extends Events {
     }
 
     getServices() {
-        return this.services;
+        var services = [];
+
+        for (var id in this.services) {
+            console.log('GETTING!', id)
+            services.push(this.services[id]);
+        }
+
+        return services;
     }
 
 };

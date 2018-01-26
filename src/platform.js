@@ -16,75 +16,6 @@ var Ikea               = require('node-tradfri-client');
 
 var Accessory, Service, Characteristic, UUIDGen;
 
-class Switch  {
-
-    constructor(platform, id, name) {
-
-
-        this.uuid = platform.homebridge.hap.uuid.generate(id);
-        this.name = name;
-        this.log = platform.log;
-        this.platform = platform;
-        this.homebridge = platform.homebridge;
-        this.Characteristic = platform.homebridge.hap.Characteristic;
-        this.Service = platform.homebridge.hap.Service;
-        this.services = [];
-
-
-        var service = new this.Service.AccessoryInformation();
-
-        service.setCharacteristic(this.Characteristic.Manufacturer, 'OLLE');
-
-        service.setCharacteristic(this.Characteristic.Model, 'NISSE');
-
-        service.setCharacteristic(this.Characteristic.FirmwareRevision, 'PELLE');
-
-        service.setCharacteristic(this.Characteristic.SerialNumber, 'OLGA');
-
-
-        this.addService(service);
-        this.addProgrammableSwitch();
-    }
-
-    addProgrammableSwitch() {
-        console.log('Adding switch');
-        var service = new this.Service.StatelessProgrammableSwitch(this.name, this.uuid);
-
-        //service.addCharacteristic(this.Characteristic.ProgrammableSwitchEvent);
-        service.getCharacteristic(this.Characteristic.ProgrammableSwitchEvent).setValue(0);
-
-        service.getCharacteristic(this.Characteristic.ProgrammableSwitchEvent).on('set', (value, callback) => {
-            console.log('SET', value);
-            callback();
-        });
-
-        service.getCharacteristic(this.Characteristic.ProgrammableSwitchEvent).on('get', (callback) => {
-            console.log('GET');
-            callback(null, 1);
-        });
-
-        service.getCharacteristic(this.Characteristic.ProgrammableSwitchEvent).on('change', (a, b, c) => {
-            console.log('change', a, b, c);
-        });
-
-        this.addService(service);
-    }
-
-    addService(service) {
-        this.services.push(service);
-    }
-
-    identify(callback) {
-        this.log('Identify called for accessory \'%s\'.', this.name);
-        callback();
-    }
-
-    getServices() {
-        return this.services;
-    }
-
-};
-
 
 module.exports = class Platform  {
 
@@ -92,7 +23,7 @@ module.exports = class Platform  {
 
         if (config.host == undefined)
             throw new Error('Must specify a host in ~/.homebridge/config.json.');
-            
+
         this.config         = config;
         this.log            = log;
         this.homebridge     = homebridge;
@@ -188,11 +119,12 @@ module.exports = class Platform  {
 
             this.tradfri.observeDevices();
 
+            this.log('Waiting for more devices to show up...');
+
             timeout = setInterval(() => {
                 var now = new Date();
-                this.log('Checking...');
                 if (now - timestamp > 2000) {
-                    this.log('Done!');
+                    this.log('Done.');
                     clearInterval(timeout);
                     resolve();
                 }
@@ -212,14 +144,11 @@ module.exports = class Platform  {
         .then(() => {
             var accessories = [];
 
-
             for (var id in this.items) {
                 accessories.push(this.items[id]);
             }
 
-            accessories.push(new Switch(this, 'ID', 'MEG'));
-
-            this.log('Got %d accessories', accessories.length)
+            this.log('Found %d accessories.', accessories.length);
             callback(accessories);
         })
         .catch((error) => {

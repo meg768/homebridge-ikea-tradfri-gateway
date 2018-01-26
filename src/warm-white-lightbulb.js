@@ -4,7 +4,6 @@ var isString    = require('yow/is').isString;
 var isNumber    = require('yow/is').isNumber;
 var Timer       = require('yow/timer');
 var Lightbulb   = require('./lightbulb.js');
-var Accessory  = require('./accessory.js');
 
 const COLOR_MIN = 140;
 const COLOR_MAX = 500;
