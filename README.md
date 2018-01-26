@@ -6,8 +6,8 @@ NOTE (2018-01-26) - This does not work with the latest firmware update
 of the Trådfri Gateway. As of now, the latest version does not
 allow you to add remote controls or dimmers to the
 TRADFRI app (at least in the iOS version) so this plugin
-was designed to both be able to work correctly in the TRADFRI app
-and work with the Apple Home app.
+was designed for gateway version 1.1.0015 to both be able
+to work correctly in the TRADFRI app and work with the Apple Home app.
 
 Things will of course change in the future...
 
