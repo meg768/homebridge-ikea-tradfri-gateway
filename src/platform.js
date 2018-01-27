@@ -11,6 +11,7 @@ var Timer            = require('yow/timer');
 
 var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');
+var RgbLightbulb       = require('./rgb-lightbulb.js');
 var Ikea               = require('node-tradfri-client');
 
 
@@ -96,6 +97,10 @@ module.exports = class Platform  {
                     switch(device.lightList[0]._spectrum) {
                         case 'white': {
                             bulb = new WarmWhiteLightbulb(this, device);
+                            break;
+                        }
+                        case 'rgb': {
+                            bulb = new RgbLightbulb(this, device);
                             break;
                         }
                         default: {
