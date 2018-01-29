@@ -101,6 +101,9 @@ module.exports = class Lightbulb extends Device {
                 if (callback)
                     callback();
             })
+            .catch((error) => {
+                this.log(error);
+            });
 
     }
 

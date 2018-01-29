@@ -11,10 +11,6 @@ module.exports = class Device extends Accessory {
 
         this.device = device;
 
-        this.on('changed', (device) => {
-            this.device = device;
-            this.deviceChanged();
-        });
 
         this.addAccessoryInformation();
     }

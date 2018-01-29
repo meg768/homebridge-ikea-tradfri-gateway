@@ -12,116 +12,72 @@ var Timer            = require('yow/timer');
 var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');
 var RgbLightbulb       = require('./rgb-lightbulb.js');
-var Ikea               = require('node-tradfri-client');
-
+var Gateway            = require('./gateway.js');
 
 var Accessory, Service, Characteristic, UUIDGen;
 
 
-module.exports = class Platform  {
+module.exports = class Platform extends Gateway {
 
     constructor(log, config, homebridge) {
-
-        if (config.host == undefined)
-            throw new Error('Must specify a host in ~/.homebridge/config.json.');
-
-        this.config         = config;
-        this.log            = log;
-        this.homebridge     = homebridge;
-        this.gateway        = new Ikea.TradfriClient(config.host);
-        this.devices        = {};
-        this.timestamp      = new Date();
 
         Accessory = homebridge.platformAccessory;
         Service = homebridge.hap.Service;
         Characteristic = homebridge.hap.Characteristic;
         UUIDGen = homebridge.hap.uuid;
 
-        // Load .env
-        require('dotenv').config({path: Path.join(process.env.HOME, '.homebridge/.env')});
+        super(log, config);
 
+        this.homebridge = homebridge;
+        this.devices = {};
 
         this.homebridge.on('didFinishLaunching', () => {
             this.log('didFinishLaunching');
         });
-
-        if (process.env.IKEA_TRADFRI_PSK)
-            config.psk = process.env.IKEA_TRADFRI_PSK;
-
-        if (process.env.IKEA_TRADFRI_IDENTITY)
-            config.identity = process.env.IKEA_TRADFRI_IDENTITY;
-
-        if (config.psk == undefined)
-            throw new Error('A pre-shared key (psk) must be specified in ~/.homebridge/config.json.')
-
-        if (config.identity == undefined)
-            config.identity = 'Client_identity';
-
     }
 
-    connect() {
-        return new Promise((resolve, reject) => {
-            this.log('Connecting...');
-            this.gateway.connect(this.config.identity, this.config.psk).then((connected) => {
-                if (connected)
-                    return Promise.resolve();
-                else
-                    reject(new Error('Could not connect.'));
-            })
-            .then(() => {
-                this.log('Loading devices...');
-                return this.gateway.observeDevices();
-            })
-            .then(() => {
-                this.log('Done.');
-                resolve();
-            })
-            .catch((error) => {
-                reject(error);
-            })
-        });
+    deviceUpdated(device) {
+        var item = this.devices[device.instanceId];
+
+        if (item != undefined) {
+            this.log('Change on device %s', device.name);
+            item.device = device;
+            item.deviceChanged();
+        }
+    }
+
+    groupUpdated(group) {
     }
 
 
     setup() {
-        return new Promise((resolve, reject) => {
-            for (var id in this.gateway.devices) {
-                var device = this.gateway.devices[id];
+        for (var id in this.gateway.devices) {
+            var device = this.gateway.devices[id];
 
-                if (device.type === Ikea.AccessoryTypes.lightbulb) {
+            if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
-                    this.log('Creating accessory \'%s\'...', device.name);
+                this.log('Creating accessory \'%s\'...', device.name);
 
-                    var bulb = undefined;
+                var bulb = undefined;
 
-                    switch(device.lightList[0]._spectrum) {
-                        case 'white': {
-                            bulb = new WarmWhiteLightbulb(this, device);
-                            break;
-                        }
-                        case 'rgb': {
-                            bulb = new RgbLightbulb(this, device);
-                            break;
-                        }
-                        default: {
-                            bulb = new Lightbulb(this, device);
-                            break;
-                        }
+                switch(device.lightList[0]._spectrum) {
+                    case 'white': {
+                        bulb = new WarmWhiteLightbulb(this, device);
+                        break;
                     }
-
-                    this.devices[device.instanceId] = bulb;
-                    this.devices[device.instanceId].emit('changed', device);
+                    case 'rgb': {
+                        bulb = new RgbLightbulb(this, device);
+                        break;
+                    }
+                    default: {
+                        bulb = new Lightbulb(this, device);
+                        break;
+                    }
                 }
+
+                this.devices[device.instanceId] = bulb;
             }
-
-            this.gateway.on("device updated", (device) => {
-                if (this.devices[device.instanceId] != undefined)
-                    this.devices[device.instanceId].emit('changed', device);
-            });
-
-            resolve();
-        });
-
+        }
 
     }
 
