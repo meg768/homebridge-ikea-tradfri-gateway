@@ -18,6 +18,10 @@ module.exports = class Accessory extends Events {
         this.Characteristic = platform.homebridge.hap.Characteristic;
         this.Service = platform.homebridge.hap.Service;
         this.services = {};
+
+        // Important, set uuid_base to a unique uuid otherwise
+        // two accessories with the same name cannot be created...
+        this.uuid_base = this.uuid;
     }
 
     generateUUID(id) {
