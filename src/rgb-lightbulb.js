@@ -51,7 +51,7 @@ module.exports = class RgbLightbulb extends Lightbulb {
             this.hue = value;
             this.log('Setting hue to %s on lightbulb \'%s\'', this.hue, this.name);
 
-            this.platform.tradfri.operateLight(this.device, {
+            this.platform.gateway.operateLight(this.device, {
                 color: ColorConvert.hsl.hex(this.hue, this.saturation, this.luminance),
                 transitionTime: 0.1
             })
@@ -75,7 +75,7 @@ module.exports = class RgbLightbulb extends Lightbulb {
             this.saturation = value;
             this.log('Setting saturation to %s on lightbulb \'%s\'', this.saturation, this.name);
 
-            this.platform.tradfri.operateLight(this.device, {
+            this.platform.gateway.operateLight(this.device, {
                 color: ColorConvert.hsl.hex(this.hue, this.saturation, this.luminance),
                 transitionTime: 0.1
             })

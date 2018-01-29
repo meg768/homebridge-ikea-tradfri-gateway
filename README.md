@@ -89,3 +89,8 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 
 * Find out gateway version and act accordingly
 * Support motion sensors and remote controls if possible
+* Handle reboot or connection break of gateway
+
+## Bugfixes
+
+* 2018-01-29 - Can now have accessories with the same name in the IKEA app

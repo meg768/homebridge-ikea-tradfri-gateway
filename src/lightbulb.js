@@ -56,7 +56,7 @@ module.exports = class Lightbulb extends Device {
         this.log('Setting brightness to %s on lightbulb \'%s\'', value, this.name);
         this.brightness = value;
 
-        this.platform.tradfri.operateLight(this.device, {
+        this.platform.gateway.operateLight(this.device, {
                 dimmer: this.brightness
             })
             .then(() => {
@@ -94,7 +94,7 @@ module.exports = class Lightbulb extends Device {
         this.log('Setting power to %s on lightbulb \'%s\'', value ? 'ON' : 'OFF', this.name);
         this.power = value;
 
-        this.platform.tradfri.operateLight(this.device, {
+        this.platform.gateway.operateLight(this.device, {
                 onOff: this.power
             })
             .then(() => {

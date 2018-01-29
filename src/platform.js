@@ -28,7 +28,7 @@ module.exports = class Platform  {
         this.config         = config;
         this.log            = log;
         this.homebridge     = homebridge;
-        this.tradfri        = new Ikea.TradfriClient(config.host);
+        this.gateway        = new Ikea.TradfriClient(config.host);
         this.devices        = {};
         this.timestamp      = new Date();
 
@@ -62,7 +62,7 @@ module.exports = class Platform  {
     connect() {
         return new Promise((resolve, reject) => {
             this.log('Connecting...');
-            this.tradfri.connect(this.config.identity, this.config.psk).then((connected) => {
+            this.gateway.connect(this.config.identity, this.config.psk).then((connected) => {
                 if (connected)
                     return Promise.resolve();
                 else
@@ -70,7 +70,7 @@ module.exports = class Platform  {
             })
             .then(() => {
                 this.log('Loading devices...');
-                return this.tradfri.observeDevices();
+                return this.gateway.observeDevices();
             })
             .then(() => {
                 this.log('Done.');
@@ -85,8 +85,8 @@ module.exports = class Platform  {
 
     setup() {
         return new Promise((resolve, reject) => {
-            for (var id in this.tradfri.devices) {
-                var device = this.tradfri.devices[id];
+            for (var id in this.gateway.devices) {
+                var device = this.gateway.devices[id];
 
                 if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
@@ -114,7 +114,7 @@ module.exports = class Platform  {
                 }
             }
 
-            this.tradfri.on("device updated", (device) => {
+            this.gateway.on("device updated", (device) => {
                 if (this.devices[device.instanceId] != undefined)
                     this.devices[device.instanceId].emit('changed', device);
             });

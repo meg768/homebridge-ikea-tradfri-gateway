@@ -64,7 +64,7 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
 
         this.log('Setting color temperature to %s%% on lightbulb \'%s\'', percent, this.name);
 
-        this.platform.tradfri.operateLight(this.device, {
+        this.platform.gateway.operateLight(this.device, {
             colorTemperature: percent
         })
         .then(() => {
