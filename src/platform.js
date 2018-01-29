@@ -13,6 +13,8 @@ var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');
 var RgbLightbulb       = require('./rgb-lightbulb.js');
 var Gateway            = require('./gateway.js');
+var Ikea               = require('node-tradfri-client');
+
 
 var Accessory, Service, Characteristic, UUIDGen;
 

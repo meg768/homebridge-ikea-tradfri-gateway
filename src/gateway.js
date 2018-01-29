@@ -36,6 +36,7 @@ module.exports = class Gateway  {
         this.gateway        = new Ikea.TradfriClient(config.host);
 
         this.gateway.on('device updated', (device) => {
+            this.log('Device %s (%s) updated.', device.name, device.instanceId);
             this.deviceUpdated(device);
         });
 
