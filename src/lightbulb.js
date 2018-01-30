@@ -9,7 +9,7 @@ module.exports = class Lightbulb extends Device {
     constructor(platform, device) {
         super(platform, device);
 
-        this.log('Creating new lightbulb (%s) %s %s', this.id, this.name, this.uuid);
+        this.log('Creating new lightbulb %s (%s)...', this.name, this.id);
         this.lightbulb = new this.Service.Lightbulb(this.name, this.uuid);
 
         this.addService('lightbulb', this.lightbulb);

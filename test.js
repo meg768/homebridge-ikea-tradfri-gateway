@@ -19,13 +19,18 @@ gateway.connect('Client_identity', process.env.IKEA_TRADFRI_PSK).then((connected
     });
 
     gateway.on("group updated", (group) => {
-        console.log(group);
+        //console.log(group);
     });
 
     gateway.on("scene updated", (group, scene) => {
-        console.log(group, scene);
+        //console.log(group, scene);
     });
 
-    gateway.observeDevices();
-    gateway.observeGroupsAndScenes();
+    gateway.observeDevices().then(() => {
+        return gateway.observeGroupsAndScenes();
+
+    })
+    .then(() => {
+        console.log(gateway.devices[65537]);
+    });
 });
