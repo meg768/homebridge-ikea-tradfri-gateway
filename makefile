@@ -1,6 +1,6 @@
 
 all:
-	echo Specify 'pull', 'config', 'install' or 'run'
+	@echo Specify 'pull', 'config', 'install' or 'run'
 
 pull:
 	git pull
