@@ -1,6 +1,6 @@
 {
   "name": "homebridge-ikea-tradfri-gateway",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "homebridge-ikea-tradfri-gateway",
   "main": "index.js",
   "scripts": {

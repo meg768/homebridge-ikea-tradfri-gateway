@@ -81,7 +81,7 @@ module.exports = class Platform extends Gateway {
             }
         }
 
-        return this.Promise.resolve();
+        return Promise.resolve();
 
     }
 
