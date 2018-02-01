@@ -56,11 +56,12 @@ module.exports = class Gateway  {
             .catch((error) => {
                 this.log('Ping failed!')
             })
-        }, 5000);
+        }, 10000);
 
         return Promise.resolve();
 
     }
+
     connect() {
         return new Promise((resolve, reject) => {
             this.log('Connecting...');
