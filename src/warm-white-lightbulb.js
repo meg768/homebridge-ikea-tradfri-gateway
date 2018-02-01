@@ -27,10 +27,11 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
 
 
     enableColorTemperature() {
+        var light = this.device.lightList[0];
         var colorTemperature = this.lightbulb.getCharacteristic(this.Characteristic.ColorTemperature);
 
-        // Set mid-tempertature
-        this.colorTemperature = (COLOR_MAX + COLOR_MIN) / 2;
+        this.colorTemperature = light.colorTemperature / 100;
+        colorTemperature.updateValue(this.colorTemperature);
 
         colorTemperature.on('get', (callback) => {
             callback(null, this.colorTemperature);

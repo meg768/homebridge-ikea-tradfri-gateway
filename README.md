@@ -94,3 +94,7 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 ## Bugfixes
 
 * 2018-01-29 - Can now have accessories with the same name in the IKEA app
+
+## Useful Links
+
+* https://www.reddit.com/r/tradfri/

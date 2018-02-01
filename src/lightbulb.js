@@ -21,6 +21,7 @@ module.exports = class Lightbulb extends Device {
 
         this.updatePower();
         this.updateBrightness();
+        this.updateStatus();
     }
 
     addCharacteristics() {
@@ -29,11 +30,23 @@ module.exports = class Lightbulb extends Device {
         this.enableStatus();
     }
 
-    enableBrightness() {
-        var light = this.device.lightList[0];
-        var brightness = this.lightbulb.addCharacteristic(this.Characteristic.Brightness);
+    enablePower() {
+        var power = this.lightbulb.getCharacteristic(this.Characteristic.On);
 
-        brightness.updateValue(this.brightness = light.dimmer);
+        power.on('get', (callback) => {
+            callback(null, this.power);
+        });
+
+        power.on('set', (value, callback) => {
+            this.setPower(value, callback);
+        });
+
+        this.updatePower();
+
+    }
+
+    enableBrightness() {
+        var brightness = this.lightbulb.addCharacteristic(this.Characteristic.Brightness);
 
         brightness.on('get', (callback) => {
             callback(null, this.brightness);
@@ -43,8 +56,7 @@ module.exports = class Lightbulb extends Device {
             this.setBrightness(value, callback);
         });
 
-        this.log('Enabled brightness on %s. Brightness is initially %s%%.', this.name, this.brightness);
-
+        this.updateBrightness();
     }
 
     enableStatus() {
@@ -53,9 +65,26 @@ module.exports = class Lightbulb extends Device {
         alive.updateValue(this.device.alive);
 
         this.lightbulb.getCharacteristic(this.Characteristic.StatusActive).on('get', (callback) => {
-            this.log('Light %s in now %s.', this.name, this.device.alive ? 'ALIVE' : 'DEAD');
+            this.log('Light %s in currently %s.', this.name, this.device.alive ? 'ALIVE' : 'DEAD');
             callback(null, this.device.alive);
         });
+    }
+
+    setPower(value, callback) {
+        this.log('Setting power to %s on lightbulb \'%s\'', value ? 'ON' : 'OFF', this.name);
+        this.power = value;
+
+        this.platform.gateway.operateLight(this.device, {
+            onOff: this.power
+        })
+        .then(() => {
+            if (callback)
+                callback();
+        })
+        .catch((error) => {
+            this.log(error);
+        });
+
     }
 
     setBrightness(value, callback) {
@@ -63,12 +92,22 @@ module.exports = class Lightbulb extends Device {
         this.brightness = value;
 
         this.platform.gateway.operateLight(this.device, {
-                dimmer: this.brightness
-            })
-            .then(() => {
-                if (callback)
-                    callback();
-            });
+            dimmer: this.brightness
+        })
+        .then(() => {
+            if (callback)
+                callback();
+        });
+    }
+
+    updatePower() {
+        var light = this.device.lightList[0];
+        var power = this.lightbulb.getCharacteristic(this.Characteristic.On);
+
+        this.power = light.onOff;
+
+        this.log('Updating power to %s on lightbulb \'%s\'', this.power ? 'ON' : 'OFF', this.name);
+        power.updateValue(this.power);
     }
 
     updateBrightness() {
@@ -82,51 +121,10 @@ module.exports = class Lightbulb extends Device {
 
     }
 
+    updateStatus() {
+        var alive = this.lightbulb.addCharacteristic(this.Characteristic.StatusActive);
 
-    enablePower() {
-        var light = this.device.lightList[0];
-        var power = this.lightbulb.getCharacteristic(this.Characteristic.On);
-
-        power.updateValue(this.power = light.onOff);
-
-        power.on('get', (callback) => {
-            callback(null, this.power);
-        });
-
-        power.on('set', (value, callback) => {
-            this.setPower(value, callback);
-        });
-
-        this.log('Enabled power on %s. Power is initially %s.', this.name, this.power ? 'ON' : 'OFF');
+        alive.updateValue(this.device.alive);
     }
-
-    setPower(value, callback) {
-        this.log('Setting power to %s on lightbulb \'%s\'', value ? 'ON' : 'OFF', this.name);
-        this.power = value;
-
-        this.platform.gateway.operateLight(this.device, {
-                onOff: this.power
-            })
-            .then(() => {
-                if (callback)
-                    callback();
-            })
-            .catch((error) => {
-                this.log(error);
-            });
-
-    }
-
-    updatePower() {
-        var light = this.device.lightList[0];
-        var power = this.lightbulb.getCharacteristic(this.Characteristic.On);
-
-        this.power = light.onOff;
-
-        this.log('Updating power to %s on lightbulb \'%s\'', this.power ? 'ON' : 'OFF', this.name);
-        power.updateValue(this.power);
-    }
-
-
 
 };

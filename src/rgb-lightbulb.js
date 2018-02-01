@@ -19,34 +19,49 @@ module.exports = class RgbLightbulb extends Lightbulb {
 
     addCharacteristics() {
         super.addCharacteristics();
+
         this.enableHue();
         this.enableSaturation();
     }
 
     deviceChanged() {
         super.deviceChanged();
+        this.updateHue();
+        this.updateSaturation();
+    }
 
+    updateHue() {
         var light = this.device.lightList[0];
+        var hue = this.lightbulb.getCharacteristic(this.Characteristic.Hue);
         var color = ColorConvert.hex.hsl(light.color);
 
-        this.hue        = color[0];
-        this.saturation = color[1];
-        this.luminance  = 50;
+        this.hue = color[0];
+        hue.updateValue(this.hue);
 
         this.log('Updating to color hsl(%s, %s, %s) on lightbulb \'%s\'', this.hue, this.saturation, this.luminance, this.name);
-        this.lightbulb.getCharacteristic(this.Characteristic.Hue).updateValue(this.hue);
-        this.lightbulb.getCharacteristic(this.Characteristic.Saturation).updateValue(this.saturation);
+    }
 
+    updateSaturation() {
+        var light = this.device.lightList[0];
+        var saturation = this.lightbulb.getCharacteristic(this.Characteristic.Saturation);
+        var color = ColorConvert.hex.hsl(light.color);
+
+        this.saturation = color[1];
+        saturation.updateValue(this.saturation);
+
+        this.log('Updating to color hsl(%s, %s, %s) on lightbulb \'%s\'', this.hue, this.saturation, this.luminance, this.name);
     }
 
     enableHue() {
-        var characteristic = this.lightbulb.getCharacteristic(this.Characteristic.Hue);
+        var hue = this.lightbulb.getCharacteristic(this.Characteristic.Hue);
 
-        characteristic.on('get', (callback) => {
+        this.updateHue();
+
+        hue.on('get', (callback) => {
             callback(null, this.hue);
         });
 
-        characteristic.on('set', (value, callback) => {
+        hue.on('set', (value, callback) => {
             // Set value
             this.hue = value;
             this.log('Setting hue to %s on lightbulb \'%s\'', this.hue, this.name);
@@ -64,13 +79,15 @@ module.exports = class RgbLightbulb extends Lightbulb {
 
 
     enableSaturation() {
-        var characteristic = this.lightbulb.getCharacteristic(this.Characteristic.Saturation);
+        var saturation = this.lightbulb.getCharacteristic(this.Characteristic.Saturation);
 
-        characteristic.on('get', (callback) => {
+        this.updateSaturation();
+
+        saturation.on('get', (callback) => {
             callback(null, this.saturation);
         });
 
-        characteristic.on('set', (value, callback) => {
+        saturation.on('set', (value, callback) => {
             // Set value
             this.saturation = value;
             this.log('Setting saturation to %s on lightbulb \'%s\'', this.saturation, this.name);
