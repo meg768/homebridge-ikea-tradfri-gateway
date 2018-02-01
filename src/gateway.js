@@ -47,7 +47,20 @@ module.exports = class Gateway  {
 
     }
 
+    enablePing() {
 
+        setInterval(() => {
+            this.gateway.ping().then(() => {
+                this.log('Ping OK.');
+            })
+            .catch((error) => {
+                this.log('Ping failed!')
+            })
+        }, 5000);
+
+        return Promise.resolve();
+
+    }
     connect() {
         return new Promise((resolve, reject) => {
             this.log('Connecting...');
@@ -67,10 +80,7 @@ module.exports = class Gateway  {
 
             })
             .then(() => {
-                setInterval(() => {
-                    this.log('Ping!');
-                }, 5000);
-                resolve();
+                return this.enablePing();
             })
             .then(() => {
                 this.log('Done.');
