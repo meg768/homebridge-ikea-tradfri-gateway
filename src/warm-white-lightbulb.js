@@ -13,10 +13,8 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
     constructor(platform, device) {
         super(platform, device);
 
-    }
+        this.colorTemperature = (COLOR_MAX + COLOR_MIN) / 2;
 
-    addCharacteristics() {
-        super.addCharacteristics();
         this.enableColorTemperature();
     }
 
@@ -25,13 +23,8 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
         this.updateColorTemperature();
     }
 
-
     enableColorTemperature() {
-        var light = this.device.lightList[0];
         var colorTemperature = this.lightbulb.getCharacteristic(this.Characteristic.ColorTemperature);
-
-        this.colorTemperature = light.colorTemperature / 100;
-        colorTemperature.updateValue(this.colorTemperature);
 
         colorTemperature.on('get', (callback) => {
             callback(null, this.colorTemperature);
@@ -40,13 +33,15 @@ module.exports = class WarmWhiteLightbulb extends Lightbulb {
         colorTemperature.on('set', (value, callback) => {
             this.setColorTemperature(value, callback);
         });
+
+        this.updateColorTemperature();
     }
 
     updateColorTemperature() {
         var light = this.device.lightList[0];
         var colorTemperature = this.lightbulb.getCharacteristic(this.Characteristic.ColorTemperature);
 
-        this.colorTemperature = light.colorTemperature / 100;
+        this.colorTemperature = COLOR_MIN + ((COLOR_MAX - COLOR_MIN) * (light.colorTemperature / 100));
 
         this.log('Updating color temperature to %s on lightbulb \'%s\'', this.colorTemperature, this.name);
         colorTemperature.updateValue(this.colorTemperature);

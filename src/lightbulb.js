@@ -13,7 +13,10 @@ module.exports = class Lightbulb extends Device {
         this.lightbulb = new this.Service.Lightbulb(this.name, this.uuid);
 
         this.addService('lightbulb', this.lightbulb);
-        this.addCharacteristics();
+
+        this.enablePower();
+        this.enableBrightness();
+        this.enableStatus();
     }
 
     deviceChanged(device) {
@@ -22,12 +25,6 @@ module.exports = class Lightbulb extends Device {
         this.updatePower();
         this.updateBrightness();
         this.updateStatus();
-    }
-
-    addCharacteristics() {
-        this.enablePower();
-        this.enableBrightness();
-        this.enableStatus();
     }
 
     enablePower() {
@@ -62,12 +59,14 @@ module.exports = class Lightbulb extends Device {
     enableStatus() {
         var alive = this.lightbulb.addCharacteristic(this.Characteristic.StatusActive);
 
-        alive.updateValue(this.device.alive);
-
-        this.lightbulb.getCharacteristic(this.Characteristic.StatusActive).on('get', (callback) => {
+        alive.on('get', (callback) => {
             this.log('Light %s in currently %s.', this.name, this.device.alive ? 'ALIVE' : 'DEAD');
             callback(null, this.device.alive);
         });
+
+        this.updateStatus();
+
+
     }
 
     setPower(value, callback) {
@@ -84,7 +83,6 @@ module.exports = class Lightbulb extends Device {
         .catch((error) => {
             this.log(error);
         });
-
     }
 
     setBrightness(value, callback) {
@@ -116,14 +114,15 @@ module.exports = class Lightbulb extends Device {
 
         this.brightness = light.dimmer;
 
-        this.log('Updating brightness to %s on lightbulb \'%s\'', this.brightness, this.name);
+        this.log('Updating brightness to %s%% on lightbulb \'%s\'', this.brightness, this.name);
         brightness.updateValue(this.brightness);
 
     }
 
     updateStatus() {
-        var alive = this.lightbulb.addCharacteristic(this.Characteristic.StatusActive);
+        var alive = this.lightbulb.getCharacteristic(this.Characteristic.StatusActive);
 
+        this.log('Updating active status to %s on lightbulb \'%s\'', this.device.alive ? 'ALIVE' : 'DEAD', this.name);
         alive.updateValue(this.device.alive);
     }
 

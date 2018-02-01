@@ -15,14 +15,11 @@ module.exports = class RgbLightbulb extends Lightbulb {
         this.saturation = 0;
         this.luminance = 50;
 
-    }
-
-    addCharacteristics() {
-        super.addCharacteristics();
-
         this.enableHue();
         this.enableSaturation();
     }
+
+
 
     deviceChanged() {
         super.deviceChanged();
@@ -35,10 +32,8 @@ module.exports = class RgbLightbulb extends Lightbulb {
         var hue = this.lightbulb.getCharacteristic(this.Characteristic.Hue);
         var color = ColorConvert.hex.hsl(light.color);
 
-        this.hue = color[0];
-        hue.updateValue(this.hue);
-
-        this.log('Updating to color hsl(%s, %s, %s) on lightbulb \'%s\'', this.hue, this.saturation, this.luminance, this.name);
+        hue.updateValue(this.hue = color[0]);
+        this.log('Updating to color %s (%s, %s, %s) on lightbulb \'%s\'', light.color, this.hue, this.saturation, this.luminance, this.name);
     }
 
     updateSaturation() {
@@ -46,10 +41,8 @@ module.exports = class RgbLightbulb extends Lightbulb {
         var saturation = this.lightbulb.getCharacteristic(this.Characteristic.Saturation);
         var color = ColorConvert.hex.hsl(light.color);
 
-        this.saturation = color[1];
-        saturation.updateValue(this.saturation);
-
-        this.log('Updating to color hsl(%s, %s, %s) on lightbulb \'%s\'', this.hue, this.saturation, this.luminance, this.name);
+        saturation.updateValue(this.saturation = this.saturation = color[1]);
+        this.log('Updating to color %s (%s, %s, %s) on lightbulb \'%s\'', light.color, this.hue, this.saturation, this.luminance, this.name);
     }
 
     enableHue() {
