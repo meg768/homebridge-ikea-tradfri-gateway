@@ -30,9 +30,10 @@ module.exports = class Lightbulb extends Device {
     }
 
     enableBrightness() {
+        var light = this.device.lightList[0];
         var brightness = this.lightbulb.addCharacteristic(this.Characteristic.Brightness);
 
-        this.brightness = 100;
+        brightness.updateValue(this.brightness = light.dimmer);
 
         brightness.on('get', (callback) => {
             callback(null, this.brightness);
@@ -41,13 +42,18 @@ module.exports = class Lightbulb extends Device {
         brightness.on('set', (value, callback) => {
             this.setBrightness(value, callback);
         });
+
+        this.log('Enabled brightness on %s. Brightness is initially %s%%.', this.name, this.brightness);
+
     }
 
     enableStatus() {
-        this.lightbulb.addCharacteristic(this.Characteristic.StatusActive);
-        this.lightbulb.setCharacteristic(this.Characteristic.StatusActive, this.device.alive);
+        var alive = this.lightbulb.addCharacteristic(this.Characteristic.StatusActive);
+
+        alive.updateValue(this.device.alive);
 
         this.lightbulb.getCharacteristic(this.Characteristic.StatusActive).on('get', (callback) => {
+            this.log('Light %s in now %s.', this.name, this.device.alive ? 'ALIVE' : 'DEAD');
             callback(null, this.device.alive);
         });
     }
@@ -73,13 +79,15 @@ module.exports = class Lightbulb extends Device {
 
         this.log('Updating brightness to %s on lightbulb \'%s\'', this.brightness, this.name);
         brightness.updateValue(this.brightness);
+
     }
 
 
     enablePower() {
+        var light = this.device.lightList[0];
         var power = this.lightbulb.getCharacteristic(this.Characteristic.On);
 
-        this.power = true;
+        power.updateValue(this.power = light.onOff);
 
         power.on('get', (callback) => {
             callback(null, this.power);
@@ -88,6 +96,8 @@ module.exports = class Lightbulb extends Device {
         power.on('set', (value, callback) => {
             this.setPower(value, callback);
         });
+
+        this.log('Enabled power on %s. Power is initially %s.', this.name, this.power ? 'ON' : 'OFF');
     }
 
     setPower(value, callback) {
