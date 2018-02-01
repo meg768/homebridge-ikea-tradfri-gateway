@@ -54,7 +54,8 @@ module.exports = class Gateway  {
                 this.log('Ping OK.');
             })
             .catch((error) => {
-                this.log('Ping failed!')
+                this.log('Ping failed!');
+                this.log(error);
             })
         }, 10000);
 
