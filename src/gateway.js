@@ -67,6 +67,9 @@ module.exports = class Gateway  {
 
             })
             .then(() => {
+                setInterval(() => {
+                    this.log('Ping!');
+                }, 5000);
                 resolve();
             })
             .then(() => {
