@@ -14,26 +14,26 @@ var Ikea             = require('node-tradfri-client');
 
 module.exports = class Gateway  {
 
-    constructor(log, config) {
+    constructor(options) {
 
-        if (config.host == undefined)
-            throw new Error('Must specify a host in ~/.homebridge/config.json.');
+        if (options.host == undefined)
+            throw new Error('A host must be specified.');
 
         if (process.env.IKEA_TRADFRI_PSK)
-            config.psk = process.env.IKEA_TRADFRI_PSK;
+            options.psk = process.env.IKEA_TRADFRI_PSK;
 
         if (process.env.IKEA_TRADFRI_IDENTITY)
-            config.identity = process.env.IKEA_TRADFRI_IDENTITY;
+            options.identity = process.env.IKEA_TRADFRI_IDENTITY;
 
-        if (config.psk == undefined)
-            throw new Error('A pre-shared key (psk) must be specified in ~/.homebridge/config.json.')
+        if (options.psk == undefined)
+            throw new Error('A pre-shared key (psk) must be specified.');
 
-        if (config.identity == undefined)
-            config.identity = 'Client_identity';
+        if (options.identity == undefined)
+            options.identity = 'Client_identity';
 
-        this.config         = config;
-        this.log            = log;
-        this.gateway        = new Ikea.TradfriClient(config.host);
+        this.options         = options;
+        this.log            = isFunction(options.log) ? options.log : console.log;
+        this.gateway        = new Ikea.TradfriClient(options.host);
 
         this.gateway.on('device updated', (device) => {
             this.log('Device %s (%s) updated.', device.name, device.instanceId);
@@ -66,7 +66,7 @@ module.exports = class Gateway  {
     connect() {
         return new Promise((resolve, reject) => {
             this.log('Connecting...');
-            this.gateway.connect(this.config.identity, this.config.psk).then((connected) => {
+            this.gateway.connect(this.options.identity, this.options.psk).then((connected) => {
                 if (connected)
                     return Promise.resolve();
                 else
