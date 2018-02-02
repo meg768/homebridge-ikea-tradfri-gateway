@@ -13,3 +13,6 @@ install:
 
 run:
 	homebridge
+
+test:
+	node ./test.js
