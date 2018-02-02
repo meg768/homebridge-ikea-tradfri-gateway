@@ -18,6 +18,7 @@ gateway.connect('Client_identity', process.env.IKEA_TRADFRI_PSK).then((connected
         }
     });
 
+console.log(gateway);
     gateway.on("group updated", (group) => {
         //console.log(group);
     });

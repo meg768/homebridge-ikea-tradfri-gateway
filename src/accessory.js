@@ -9,6 +9,9 @@ module.exports = class Accessory extends Events {
 
         super();
 
+        if (name == '')
+            name = 'Namnlös';
+            
         this.name = name;
         this.id = id;
         this.platform = platform;
