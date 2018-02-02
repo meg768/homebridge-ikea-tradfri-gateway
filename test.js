@@ -8,7 +8,7 @@ require('dotenv').config({path: Path.join(process.env.HOME, '.homebridge/.env')}
 var Gateway = require('./src/gateway.js')
 var ikea = new Gateway({"host": "gw-b8d7af2a9d45"});
 
-gateway.connect().then(() => {
+ikea.gateway.connect().then(() => {
 
     console.log('Connected.');
 
