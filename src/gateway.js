@@ -16,24 +16,25 @@ module.exports = class Gateway  {
 
     constructor(options) {
 
-        if (options.host == undefined)
+        this.options = Object.assign({}, options);
+
+        if (this.options.host == undefined)
             throw new Error('A host must be specified.');
 
         if (process.env.IKEA_TRADFRI_PSK)
-            options.psk = process.env.IKEA_TRADFRI_PSK;
+            this.options.psk = process.env.IKEA_TRADFRI_PSK;
 
         if (process.env.IKEA_TRADFRI_IDENTITY)
-            options.identity = process.env.IKEA_TRADFRI_IDENTITY;
+            this.options.identity = process.env.IKEA_TRADFRI_IDENTITY;
 
-        if (options.psk == undefined)
+        if (this.options.psk == undefined)
             throw new Error('A pre-shared key (psk) must be specified.');
 
-        if (options.identity == undefined)
-            options.identity = 'Client_identity';
+        if (this.options.identity == undefined)
+            this.options.identity = 'Client_identity';
 
-        this.options         = options;
-        this.log            = isFunction(options.log) ? options.log : console.log;
-        this.gateway        = new Ikea.TradfriClient(options.host);
+        this.log            = isFunction(this.options.log) ? this.options.log : console.log;
+        this.gateway        = new Ikea.TradfriClient(this.options.host);
 
         this.gateway.on('device updated', (device) => {
             this.log('Device %s (%s) updated.', device.name, device.instanceId);
@@ -44,6 +45,7 @@ module.exports = class Gateway  {
             this.groupUpdated(group);
         });
 
+        this.log(this.options);
 
     }
 
