@@ -14,30 +14,28 @@ var Ikea             = require('node-tradfri-client');
 
 module.exports = class Gateway  {
 
-    constructor(options) {
+    constructor(log, config) {
 
-        this.options = Object.assign({}, options);
-
-        if (this.options.host == undefined)
-            throw new Error('A host must be specified.');
+        if (config.host == undefined)
+            throw new Error('Must specify a host in ~/.homebridge/config.json.');
 
         if (process.env.IKEA_TRADFRI_PSK)
-            this.options.psk = process.env.IKEA_TRADFRI_PSK;
+            config.psk = process.env.IKEA_TRADFRI_PSK;
 
         if (process.env.IKEA_TRADFRI_IDENTITY)
-            this.options.identity = process.env.IKEA_TRADFRI_IDENTITY;
+            config.identity = process.env.IKEA_TRADFRI_IDENTITY;
 
-        if (this.options.psk == undefined)
-            throw new Error('A pre-shared key (psk) must be specified.');
+        if (config.psk == undefined)
+            throw new Error('A pre-shared key (psk) must be specified in ~/.homebridge/config.json.')
 
-        if (this.options.identity == undefined)
-            this.options.identity = 'Client_identity';
+        if (config.identity == undefined)
+            config.identity = 'Client_identity';
 
-        this.log            = isFunction(this.options.log) ? this.options.log : console.log;
-        this.gateway        = new Ikea.TradfriClient(this.options.host);
+        this.config         = config;
+        this.log            = log;
+        this.gateway        = new Ikea.TradfriClient(config.host);
 
         this.gateway.on('device updated', (device) => {
-            this.log('Device %s (%s) updated.', device.name, device.instanceId);
             this.deviceUpdated(device);
         });
 
@@ -45,7 +43,6 @@ module.exports = class Gateway  {
             this.groupUpdated(group);
         });
 
-        this.log(this.options);
 
     }
 
@@ -68,7 +65,7 @@ module.exports = class Gateway  {
     connect() {
         return new Promise((resolve, reject) => {
             this.log('Connecting...');
-            this.gateway.connect(this.options.identity, this.options.psk).then((connected) => {
+            this.gateway.connect(this.config.identity, this.config.psk).then((connected) => {
                 if (connected)
                     return Promise.resolve();
                 else
