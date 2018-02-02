@@ -13,6 +13,9 @@ ikea.gateway.connect().then(() => {
     console.log('Connected.');
 
     var device = ikea.gateway.devices[65562];
-    console.log(device.id, device.name);
+    console.log('Device %s (%s)', device.instanceId, device.name);
 
+})
+.catch((error) => {
+    console.log(error);
 });
