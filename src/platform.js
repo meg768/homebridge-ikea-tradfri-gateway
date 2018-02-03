@@ -103,6 +103,7 @@ module.exports = class Platform extends Gateway {
             // If we just return an empty array, all our automation
             // rules and scenarios will be removed from the Home App.
             console.log(error);
+            process.exit(1);
             throw error;
         })
 
