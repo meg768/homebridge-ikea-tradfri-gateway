@@ -56,7 +56,7 @@ module.exports = class Gateway  {
                 this.log('Ping failed!');
                 this.log(error);
             })
-        }, 10000);
+        }, 60000);
 
         return Promise.resolve();
 
