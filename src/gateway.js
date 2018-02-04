@@ -59,7 +59,7 @@ module.exports = class Gateway  {
             })
         }, 60000);
         */
-        
+
         return Promise.resolve();
 
     }
@@ -67,7 +67,11 @@ module.exports = class Gateway  {
     connect() {
         return new Promise((resolve, reject) => {
             this.log('Connecting...');
-            this.gateway.connect(this.config.identity, this.config.psk).then((connected) => {
+
+            this.gateway.authenticate(this.config.psk).then((identity, psk) => {
+                return this.gateway.connect(identity, psk);
+            })
+            .then((connected) => {
                 if (connected)
                     return Promise.resolve();
                 else
