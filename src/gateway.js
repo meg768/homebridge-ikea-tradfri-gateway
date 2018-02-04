@@ -16,6 +16,8 @@ module.exports = class Gateway  {
 
     constructor(log, config) {
 
+        config = Object.assign({}, config);
+        
         if (config.psk && !config.securityCode)
             config.securityCode = config.psk;
 
