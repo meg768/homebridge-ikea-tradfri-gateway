@@ -16,17 +16,14 @@ module.exports = class Gateway  {
 
     constructor(log, config) {
 
+        if (process.env.IKEA_TRADFRI_SECURITY_CODE)
+            config.securityCode = process.env.IKEA_TRADFRI_PSK;
+
         if (config.host == undefined)
             throw new Error('Must specify a host in ~/.homebridge/config.json.');
 
-        if (process.env.IKEA_TRADFRI_PSK)
-            config.psk = process.env.IKEA_TRADFRI_PSK;
-
-        if (process.env.IKEA_TRADFRI_IDENTITY)
-            config.identity = process.env.IKEA_TRADFRI_IDENTITY;
-
-        if (config.psk == undefined)
-            throw new Error('A pre-shared key (psk) must be specified in ~/.homebridge/config.json.')
+        if (config.securityCode == undefined)
+            throw new Error('The security code from the back of the IKEA gateway must be specified in ~/.homebridge/config.json.')
 
         if (config.identity == undefined)
             config.identity = 'Client_identity';
@@ -48,7 +45,6 @@ module.exports = class Gateway  {
 
     enablePing() {
 
-        /*
         setInterval(() => {
             this.gateway.ping().then(() => {
                 this.log('Ping OK.');
@@ -58,7 +54,6 @@ module.exports = class Gateway  {
                 this.log(error);
             })
         }, 60000);
-        */
 
         return Promise.resolve();
 
@@ -68,7 +63,7 @@ module.exports = class Gateway  {
         return new Promise((resolve, reject) => {
 
             Promise.resolve().then(() => {
-                return this.gateway.authenticate(this.config.psk);
+                return this.gateway.authenticate(this.config.securityCode);
             })
             .then((credentials) => {
                 return this.gateway.connect(credentials.identity, credentials.psk);
