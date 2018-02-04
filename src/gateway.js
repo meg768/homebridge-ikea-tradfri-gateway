@@ -66,10 +66,12 @@ module.exports = class Gateway  {
 
     connect() {
         return new Promise((resolve, reject) => {
-            this.log('Connecting...');
 
-            this.gateway.authenticate(this.config.psk).then((identity, psk) => {
-                return this.gateway.connect(identity, psk);
+            Promise.resolve().then(() => {
+                return this.gateway.authenticate(this.config.psk);
+            })
+            .then((identity, psk) => {
+                return this.gateway.connect(identity, psk);                
             })
             .then((connected) => {
                 if (connected)
