@@ -70,10 +70,8 @@ module.exports = class Gateway  {
             Promise.resolve().then(() => {
                 return this.gateway.authenticate(this.config.psk);
             })
-            .then((identity, psk) => {
-                console.log(identity);
-                console.log('I: "%s", P: "%s"', identity, psk);
-                return this.gateway.connect(identity, psk);
+            .then((credentials) => {
+                return this.gateway.connect(credentials.identity, credentials.psk);
             })
             .then((connected) => {
                 if (connected)
