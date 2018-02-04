@@ -17,7 +17,7 @@ module.exports = class Gateway  {
     constructor(log, config) {
 
         if (process.env.IKEA_TRADFRI_SECURITY_CODE)
-            config.securityCode = process.env.IKEA_TRADFRI_PSK;
+            config.securityCode = process.env.IKEA_TRADFRI_SECURITY_CODE;
 
         if (config.host == undefined)
             throw new Error('Must specify a host in ~/.homebridge/config.json.');
