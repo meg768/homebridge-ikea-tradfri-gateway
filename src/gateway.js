@@ -71,7 +71,8 @@ module.exports = class Gateway  {
                 return this.gateway.authenticate(this.config.psk);
             })
             .then((identity, psk) => {
-                return this.gateway.connect(identity, psk);                
+                console.log('I: "%s", P: "%s"', identity, psk);
+                return this.gateway.connect(identity, psk);
             })
             .then((connected) => {
                 if (connected)
