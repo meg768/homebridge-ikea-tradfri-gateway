@@ -16,6 +16,9 @@ module.exports = class Gateway  {
 
     constructor(log, config) {
 
+        if (config.psk && !config.securityCode)
+            config.securityCode = config.psk;
+
         if (process.env.IKEA_TRADFRI_SECURITY_CODE)
             config.securityCode = process.env.IKEA_TRADFRI_SECURITY_CODE;
 
@@ -24,9 +27,6 @@ module.exports = class Gateway  {
 
         if (config.securityCode == undefined)
             throw new Error('The security code from the back of the IKEA gateway must be specified in ~/.homebridge/config.json.')
-
-        if (config.identity == undefined)
-            config.identity = 'Client_identity';
 
         this.config         = config;
         this.log            = log;
