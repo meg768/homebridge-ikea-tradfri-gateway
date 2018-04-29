@@ -57,15 +57,17 @@ module.exports = class Platform extends Gateway {
 
             if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
-                this.log('Creating accessory \'%s\'...', device.name);
-
+                var spectrum = device.lightList[0]._spectrum;
                 var bulb = undefined;
 
-                switch(device.lightList[0]._spectrum) {
+                this.log('Creating accessory \'%s\'... (spectrum %s)', device.name);
+
+                switch(spectrum) {
                     case 'white': {
                         bulb = new WarmWhiteLightbulb(this, device);
                         break;
                     }
+                    case 'rgbw':
                     case 'rgb': {
                         bulb = new RgbLightbulb(this, device);
                         break;
