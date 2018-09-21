@@ -17,12 +17,15 @@ module.exports = class Gateway  {
     constructor(log, config) {
 
         config = Object.assign({}, config);
-        
+
         if (config.psk && !config.securityCode)
             config.securityCode = config.psk;
 
         if (process.env.IKEA_TRADFRI_SECURITY_CODE)
             config.securityCode = process.env.IKEA_TRADFRI_SECURITY_CODE;
+
+        if (process.env.IKEA_TRADFRI_HOST)
+            config.host = process.env.IKEA_TRADFRI_HOST;
 
         if (config.host == undefined)
             throw new Error('Must specify a host in ~/.homebridge/config.json.');
