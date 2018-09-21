@@ -11,6 +11,24 @@ function install() {
     var homebridge = JSON.parse(fs.readFileSync(homebridgeConfig));
     var config = JSON.parse(fs.readFileSync(thisConfig));
 
+    if (!homebridge.accessories)
+        homebridge.accessories = [];
+
+    if (!homebridge.platforms)
+        homebridge.platforms = [];
+
+    config.accessories.forEach((accessory) => {
+
+        // Remove existing
+        homebridge.accessories = homebridge.accessories.filter((item) => {
+            return item.accessory.toLowerCase() != accessory.accessory.toLowerCase();
+        });
+
+        // And add this one
+        homebridge.accessories.push(accessory);
+
+    });
+
     config.platforms.forEach((platform) => {
 
         // Remove existing platform from homebridge
@@ -22,6 +40,7 @@ function install() {
         homebridge.platforms.push(platform);
 
     });
+
 
     fs.writeFileSync(homebridgeConfig, JSON.stringify(homebridge, null, '    '));
 }
