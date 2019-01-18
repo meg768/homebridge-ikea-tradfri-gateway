@@ -68,8 +68,6 @@ module.exports = class Platform extends Gateway {
                 var spectrum = device.lightList[0]._spectrum;
                 var bulb = undefined;
 
-                this.log('Creating accessory \'%s\'... (spectrum %s)', device.name, spectrum);
-
                 switch(spectrum) {
                     case 'white': {
                         bulb = new WarmWhiteLightbulb(this, device);

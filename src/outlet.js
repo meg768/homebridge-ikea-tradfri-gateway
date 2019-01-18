@@ -9,7 +9,6 @@ module.exports = class Outlet extends Device {
     constructor(platform, device) {
         super(platform, device);
 
-        this.log('Creating new outlet %s (%s)...', this.name, this.id);
         this.outlet = new this.Service.Outlet(this.name, this.uuid);
 
         this.addService('outlet', this.outlet);
@@ -46,7 +45,7 @@ module.exports = class Outlet extends Device {
         var alive = this.outlet.addCharacteristic(this.Characteristic.StatusActive);
 
         alive.on('get', (callback) => {
-            this.log('Light %s in currently %s.', this.name, this.device.alive ? 'ALIVE' : 'DEAD');
+            this.log('Outlet %s in currently %s.', this.name, this.device.alive ? 'ALIVE' : 'DEAD');
             callback(null, this.device.alive);
         });
 
