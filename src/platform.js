@@ -58,7 +58,7 @@ module.exports = class Platform extends Gateway {
 
             this.log('Creating accessory \'%s\'...', device.name);
             this.log('************************************************************************');
-            this.log(JSON.stringify(device));
+            this.log(JSON.stringify(Ikea.AccessoryTypes));
             this.log('************************************************************************');
 
             if (device.type === Ikea.AccessoryTypes.plug) {
