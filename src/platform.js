@@ -54,7 +54,7 @@ module.exports = class Platform extends Gateway {
     setup() {
         for (var id in this.gateway.devices) {
             var device = this.gateway.devices[id];
-
+            this.log('----------------------------------');
             if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
                 var spectrum = device.lightList[0]._spectrum;
