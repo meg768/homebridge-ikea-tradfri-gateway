@@ -73,10 +73,10 @@ module.exports = class Outlet extends Device {
 
 
     updatePower() {
-        var light = this.device.lightList[0];
+        var plug  = this.device.plugList[0];
         var power = this.outlet.getCharacteristic(this.Characteristic.On);
 
-        this.power = light.onOff;
+        this.power = plug.onOff;
 
         this.log('Updating power to %s on outlet \'%s\'', this.power ? 'ON' : 'OFF', this.name);
         power.updateValue(this.power);
