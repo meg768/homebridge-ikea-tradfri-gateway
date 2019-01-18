@@ -56,12 +56,13 @@ module.exports = class Platform extends Gateway {
         for (var id in this.gateway.devices) {
             var device = this.gateway.devices[id];
 
-            this.log('Trying to create accessory \'%s\', type %s...', device.name, device.type);
-            this.log('************************************************************************');
-            this.log(JSON.stringify(Ikea.AccessoryTypes));
-            this.log('************************************************************************');
+            console.log('***************************');
+            console.log(JSON.stringify(device, null, 2));
+            console.log('***************************');
 
-            if (device.type == Ikea.AccessoryTypes.remote) {
+
+
+            if (device.type == Ikea.AccessoryTypes.plug) {
                 this.log('PLUG!! ************************************************************************');
                 this.devices[device.instanceId] = new Outlet(this, device);
             }
