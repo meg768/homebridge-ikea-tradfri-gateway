@@ -10,7 +10,6 @@ module.exports = class Device extends Accessory {
         super(platform, device.name, device.instanceId);
 
         this.device = device;
-        console.log('Device', JSON.stringify(device));
 
         this.addAccessoryInformation();
     }
