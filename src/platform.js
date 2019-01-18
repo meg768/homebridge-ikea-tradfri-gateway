@@ -17,6 +17,9 @@ var Gateway            = require('./gateway.js');
 var Ikea               = require('node-tradfri-client');
 
 
+var Accessory, Service, Characteristic, UUIDGen;
+
+
 module.exports = class Platform extends Gateway {
 
     constructor(log, config, homebridge) {
@@ -58,6 +61,7 @@ module.exports = class Platform extends Gateway {
             if (device.type === Ikea.AccessoryTypes.plug) {
                 this.devices[device.instanceId] = new Outlet(this, device);
             }
+
 
             if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
