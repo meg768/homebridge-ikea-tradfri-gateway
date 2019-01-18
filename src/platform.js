@@ -12,11 +12,9 @@ var Timer            = require('yow/timer');
 var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');
 var RgbLightbulb       = require('./rgb-lightbulb.js');
+var Outlet             = require('./outlet.js');
 var Gateway            = require('./gateway.js');
 var Ikea               = require('node-tradfri-client');
-
-
-var Accessory, Service, Characteristic, UUIDGen;
 
 
 module.exports = class Platform extends Gateway {
@@ -54,7 +52,13 @@ module.exports = class Platform extends Gateway {
     setup() {
         for (var id in this.gateway.devices) {
             var device = this.gateway.devices[id];
-            this.log('----------------------------------');
+
+            this.log('Creating accessory \'%s\'...', device.name);
+
+            if (device.type === Ikea.AccessoryTypes.plug) {
+                this.devices[device.instanceId] = new Outlet(this, device);
+            }
+
             if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
                 var spectrum = device.lightList[0]._spectrum;
