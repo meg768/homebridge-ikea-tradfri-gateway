@@ -56,7 +56,7 @@ module.exports = class Platform extends Gateway {
         for (var id in this.gateway.devices) {
             var device = this.gateway.devices[id];
 
-            this.log('Creating accessory \'%s\'...', device.name);
+            this.log('Trying to create accessory \'%s\', type %s...', device.name, device.type);
             this.log('************************************************************************');
             this.log(JSON.stringify(Ikea.AccessoryTypes));
             this.log('************************************************************************');
