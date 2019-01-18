@@ -61,7 +61,7 @@ module.exports = class Platform extends Gateway {
             this.log(JSON.stringify(Ikea.AccessoryTypes));
             this.log('************************************************************************');
 
-            if (device.type == 3) {
+            if (device.type == 1) {
                 this.log('PLUG!! ************************************************************************');
                 this.devices[device.instanceId] = new Outlet(this, device);
             }
