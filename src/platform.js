@@ -67,7 +67,7 @@ module.exports = class Platform extends Gateway {
             }
 
 
-            if (device.type === Ikea.AccessoryTypes.lightbulb) {
+            else if (device.type === Ikea.AccessoryTypes.lightbulb) {
 
                 var spectrum = device.lightList[0]._spectrum;
                 var bulb = undefined;
@@ -89,6 +89,9 @@ module.exports = class Platform extends Gateway {
                 }
 
                 this.devices[device.instanceId] = bulb;
+            }
+            else {
+                this.log('NO MATCH')
             }
         }
 
