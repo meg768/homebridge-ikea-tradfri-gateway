@@ -86,7 +86,7 @@ module.exports = class Platform extends Gateway {
                 }
 
                 default: {
-                    this.log('No match for device type %s');
+                    this.log('No match for device of type %s. Ignored.', device.type);
                     break;
 
                 }
