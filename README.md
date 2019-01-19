@@ -65,6 +65,7 @@ The following IKEA lighbulbs are supported
 - Standard white bulbs
 - RGB bulbs
 - Warm white bulbs with temperature control
+- Outlets
 
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
@@ -81,6 +82,7 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 * 2018-01-29 -  Can now have accessories with the same name in the IKEA app
 * 2018-02-04 -  Updated to work with gateway version 1.3.14.
                 The security code must now be present in **~/.homebrige/config.json**.
+* 2019-01-19 -  Added support for outlets.
 
 ## Useful Links
 
