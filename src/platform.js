@@ -59,36 +59,34 @@ module.exports = class Platform extends Gateway {
 
             switch (device.type) {
                 case Ikea.AccessoryTypes.plug: {
-                    supportedDevice = new Outlet(this, device);
+                    if (device.plugList)
+                        supportedDevice = new Outlet(this, device);
                     break;
                 }
 
                 case Ikea.AccessoryTypes.lightbulb: {
-                    var spectrum = device.lightList[0]._spectrum;
+                    if (device.lightList) {
+                        var spectrum = device.lightList[0]._spectrum;
     
-                    switch(spectrum) {
-                        case 'white': {
-                            supportedDevice = new WarmWhiteLightbulb(this, device);
-                            break;
+                        switch(spectrum) {
+                            case 'white': {
+                                supportedDevice = new WarmWhiteLightbulb(this, device);
+                                break;
+                            }
+                            case 'rgbw':
+                            case 'rgb': {
+                                supportedDevice = new RgbLightbulb(this, device);
+                                break;
+                            }
+                            default: {
+                                supportedDevice = new Lightbulb(this, device);
+                                break;
+                            }
                         }
-                        case 'rgbw':
-                        case 'rgb': {
-                            supportedDevice = new RgbLightbulb(this, device);
-                            break;
-                        }
-                        default: {
-                            supportedDevice = new Lightbulb(this, device);
-                            break;
-                        }
+    
                     }
     
                     break;
-                }
-
-                default: {
-                    this.log('No match for device of type %s. Ignored.', device.type);
-                    break;
-
                 }
             }
 
@@ -96,7 +94,7 @@ module.exports = class Platform extends Gateway {
                 this.devices[device.instanceId] = supportedDevice;
             }
             else {
-                this.log('No match for device type %s', device.type);
+                this.log('No match for device of type %s. Ignored.', device.type);
             }
         }
 
