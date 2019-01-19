@@ -43,7 +43,7 @@ module.exports = class Platform extends Gateway {
         var item = this.devices[device.instanceId];
 
         this.log('Device changed!', device.name);
-        console.log(JSON.stringify(device, null, 2));
+        console.log(JSON.stringify(device.deviceInfo, null, 2));
 
         if (item != undefined) {
             item.device = device;
