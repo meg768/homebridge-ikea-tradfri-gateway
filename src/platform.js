@@ -98,7 +98,7 @@ module.exports = class Platform extends Gateway {
                 this.devices[device.instanceId] = supportedDevice;
             }
             else {
-                this.log('No match for device of type %s. Ignored.', device.type);
+                this.log('No match for device of type %s. Ignored.', JSON.stringify(device.deviceInfo));
             }
         }
 
