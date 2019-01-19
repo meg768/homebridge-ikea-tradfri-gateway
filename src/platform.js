@@ -42,6 +42,8 @@ module.exports = class Platform extends Gateway {
     deviceUpdated(device) {
         var item = this.devices[device.instanceId];
 
+        this.log('Device changed!', device.name);
+
         if (item != undefined) {
             item.device = device;
             item.deviceChanged();
@@ -66,6 +68,7 @@ module.exports = class Platform extends Gateway {
                 this.log('PLUG!! ************************************************************************');
                 this.devices[device.instanceId] = new Outlet(this, device);
             }
+
 
 
             else if (device.type === Ikea.AccessoryTypes.lightbulb) {
