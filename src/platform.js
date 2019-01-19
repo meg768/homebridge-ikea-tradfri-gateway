@@ -59,12 +59,16 @@ module.exports = class Platform extends Gateway {
 
             switch (device.type) {
                 case Ikea.AccessoryTypes.plug: {
+
+                    // Make sure the device has a plugList                    
                     if (device.plugList)
                         supportedDevice = new Outlet(this, device);
+                    
                     break;
                 }
 
                 case Ikea.AccessoryTypes.lightbulb: {
+                    // Make sure the device has a lightList
                     if (device.lightList) {
                         var spectrum = device.lightList[0]._spectrum;
     
