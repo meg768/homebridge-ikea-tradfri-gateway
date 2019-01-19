@@ -1,6 +1,6 @@
 {
 	"name": "homebridge-ikea-tradfri-gateway",
-	"version": "1.0.29",
+	"version": "1.0.30",
 	"description": "homebridge-ikea-tradfri-gateway",
 	"main": "index.js",
 	"scripts": {
@@ -27,7 +27,7 @@
 		"color-convert": "^1.9.1",
 		"dotenv": "^4.0.0",
 		"node-tradfri-client": "^1.5.0",
-		"yow": "^1.0.85"
+		"yow": "^1.0.104"
 	},
 	"author": "",
 	"license": "ISC",
