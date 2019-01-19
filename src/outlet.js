@@ -58,7 +58,7 @@ module.exports = class Outlet extends Device {
         this.log('Setting power to %s on outlet \'%s\'', value ? 'ON' : 'OFF', this.name);
         this.power = value;
 
-        this.platform.gateway.operateLight(this.device, {
+        this.platform.gateway.operatePlug(this.device, {
             onOff: this.power
         })
         .then(() => {
