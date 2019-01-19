@@ -24,7 +24,7 @@
 		"homebridge": ">=0.2.0"
 	},
 	"dependencies": {
-		"color-convert": "^1.9.1",
+		"color-convert": "^1.9.3",
 		"dotenv": "^4.0.0",
 		"node-tradfri-client": "^1.5.0",
 		"yow": "^1.0.104"
