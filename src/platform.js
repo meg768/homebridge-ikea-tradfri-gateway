@@ -55,38 +55,48 @@ module.exports = class Platform extends Gateway {
     setup() {
         for (var id in this.gateway.devices) {
             var device = this.gateway.devices[id];
+            var supportedDevice = undefined;
 
-            if (device.type == Ikea.AccessoryTypes.plug) {
-                this.devices[device.instanceId] = new Outlet(this, device);
-            }
-
-
-
-            else if (device.type === Ikea.AccessoryTypes.lightbulb) {
-
-                var spectrum = device.lightList[0]._spectrum;
-                var bulb = undefined;
-
-                switch(spectrum) {
-                    case 'white': {
-                        bulb = new WarmWhiteLightbulb(this, device);
-                        break;
-                    }
-                    case 'rgbw':
-                    case 'rgb': {
-                        bulb = new RgbLightbulb(this, device);
-                        break;
-                    }
-                    default: {
-                        bulb = new Lightbulb(this, device);
-                        break;
-                    }
+            switch (device.type) {
+                case Ikea.AccessoryTypes.plug: {
+                    supportedDevice = new Outlet(this, device);
+                    break;
                 }
 
-                this.devices[device.instanceId] = bulb;
+                case Ikea.AccessoryTypes.lightbulb: {
+                    var spectrum = device.lightList[0]._spectrum;
+    
+                    switch(spectrum) {
+                        case 'white': {
+                            supportedDevice = new WarmWhiteLightbulb(this, device);
+                            break;
+                        }
+                        case 'rgbw':
+                        case 'rgb': {
+                            supportedDevice = new RgbLightbulb(this, device);
+                            break;
+                        }
+                        default: {
+                            supportedDevice = new Lightbulb(this, device);
+                            break;
+                        }
+                    }
+    
+                    break;
+                }
+
+                default: {
+                    this.log('No match for device type %s');
+                    break;
+
+                }
+            }
+
+            if (supportedDevice) {
+                this.devices[device.instanceId] = supportedDevice;
             }
             else {
-                this.log('NO MATCH')
+                this.log('No match for device type %s', device.type);
             }
         }
 
