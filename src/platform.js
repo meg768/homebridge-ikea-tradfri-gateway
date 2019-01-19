@@ -42,9 +42,6 @@ module.exports = class Platform extends Gateway {
     deviceUpdated(device) {
         var item = this.devices[device.instanceId];
 
-        this.log('Device changed!', device.name);
-        console.log(JSON.stringify(device.deviceInfo, null, 2));
-
         if (item != undefined) {
             item.device = device;
             item.deviceChanged();
@@ -59,14 +56,7 @@ module.exports = class Platform extends Gateway {
         for (var id in this.gateway.devices) {
             var device = this.gateway.devices[id];
 
-            console.log('***************************');
-            console.log(JSON.stringify(device, null, 2));
-            console.log('***************************');
-
-
-
             if (device.type == Ikea.AccessoryTypes.plug) {
-                this.log('PLUG!! ************************************************************************');
                 this.devices[device.instanceId] = new Outlet(this, device);
             }
 
