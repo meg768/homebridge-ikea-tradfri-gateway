@@ -7,6 +7,7 @@ var isString         = require('yow/is').isString;
 var isFunction       = require('yow/is').isFunction;
 var sprintf          = require('yow/sprintf');
 var isString         = require('yow/is').isString;
+var isArray          = require('yow/is').isArray;
 var Timer            = require('yow/timer');
 
 var Lightbulb          = require('./lightbulb.js');
@@ -53,6 +54,19 @@ module.exports = class Platform extends Gateway {
 
 
     setup() {
+
+        var expose = {};
+
+        if (isArray(this.config.expose) {
+            this.config.expose.forEach((item) => {
+                expose[item] = true;
+            });
+        }
+        else {
+            expose['outlets'] = true;
+            expose['lightbulbs'] = true;
+        }
+
         for (var id in this.gateway.devices) {
             var device = this.gateway.devices[id];
             var supportedDevice = undefined;
@@ -61,15 +75,16 @@ module.exports = class Platform extends Gateway {
                 case Ikea.AccessoryTypes.plug: {
 
                     // Make sure the device has a plugList                    
-                    if (device.plugList)
+                    if (device.plugList && expose['outlets'])
                         supportedDevice = new Outlet(this, device);
                     
                     break;
                 }
 
                 case Ikea.AccessoryTypes.lightbulb: {
+
                     // Make sure the device has a lightList
-                    if (device.lightList) {
+                    if (device.lightList && expose['lightbulbs']) {
                         var spectrum = device.lightList[0]._spectrum;
     
                         switch(spectrum) {
@@ -98,7 +113,7 @@ module.exports = class Platform extends Gateway {
                 this.devices[device.instanceId] = supportedDevice;
             }
             else {
-                this.log('No match for device of type %s. The following device is ignored.', device.type);
+                this.log('The following device is ignored.');
                 this.log(JSON.stringify(device.deviceInfo));
             }
         }
