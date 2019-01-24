@@ -57,7 +57,7 @@ module.exports = class Platform extends Gateway {
 
         var expose = {};
 
-        if (isArray(this.config.expose) {
+        if (isArray(this.config.expose)) {
             this.config.expose.forEach((item) => {
                 expose[item] = true;
             });
