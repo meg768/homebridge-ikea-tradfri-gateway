@@ -90,7 +90,7 @@ module.exports = class Platform extends Gateway {
                     // Make sure the device has a lightList
                     if (device.lightList && expose['lightbulbs']) {
                         var spectrum = device.lightList[0]._spectrum;
-    this.log(device.lightList[0]);
+    this.log(JSON.stringify(device.lightList[0]));
                         switch(spectrum) {
                             case 'white': {
                                 supportedDevice = new WarmWhiteLightbulb(this, device);
