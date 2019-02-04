@@ -22,7 +22,7 @@ for more information.
 
 Then install this plugin.
 
-    $ sudo npm install -g --unsafe-perm homebridge-ikea-tradfri-gateway
+    $ sudo npm install homebridge-ikea-tradfri-gateway -g
 
 If you are having permission problems during install, try this
 
