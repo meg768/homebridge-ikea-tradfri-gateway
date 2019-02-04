@@ -24,6 +24,10 @@ Then install this plugin.
 
     $ sudo npm install homebridge-ikea-tradfri-gateway -g
 
+If you are having permission problems during install, try this
+
+    $ sudo npm install homebridge-ikea-tradfri-gateway -g --unsafe-perm
+
 ## Configuration File
 
 Configure your **~/.homebridge/config.json** with the following platform.
