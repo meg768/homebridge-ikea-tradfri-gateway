@@ -41,6 +41,7 @@ module.exports = class Blind extends Device {
     setTargetPosition(value, callback) {
         this.log('Setting target position to %s on blind \'%s\'', value, this.name);
         this.position = value
+        this.targetPosition = value
         this.platform.gateway.operateBlind(this.device, {
             position: 100 - value
         })
