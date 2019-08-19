@@ -1,12 +1,13 @@
 {
 	"name": "homebridge-ikea-tradfri-gateway",
-	"version": "1.0.36",
+	"version": "1.0.38",
 	"description": "homebridge-ikea-tradfri-gateway",
 	"main": "index.js",
 	"scripts": {
 		"increase-package-version": "node ./scripts/increase-package-version.js",
 		"commit": "git add -A && git commit -m '-' && git push",
 		"goto-github": "open https://github.com/meg768/homebridge-ikea-tradfri-gateway",
+		"publish-to-npm": "npm run increase-package-version && npm run commit && npm publish",
 		"goto-npm": "open https://www.npmjs.com/package/homebridge-ikea-tradfri-gateway"
 	},
 	"repository": {
