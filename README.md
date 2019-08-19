@@ -50,7 +50,7 @@ Configure your **~/.homebridge/config.json** with the following platform.
             "name": "Ikea Trådfri Gateway",
             "host": "192.168.xxx.xxx",
             "securityCode" : "xxxxxxx",
-            "expose": ["lightbulbs", "outlets"]
+            "expose": ["lightbulbs", "outlets", "blinds"]
         }
     ]
 
@@ -71,6 +71,7 @@ The following IKEA lighbulbs are supported
 - RGB bulbs
 - Warm white bulbs with temperature control
 - Outlets
+- Blinds
 
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
@@ -84,6 +85,7 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 
 ## Bugfixes/Updates
 
+* 2019-08-19 -  Add support for blinds.
 * 2018-01-29 -  Can now have accessories with the same name in the IKEA app
 * 2018-02-04 -  Updated to work with gateway version 1.3.14.
                 The security code must now be present in **~/.homebrige/config.json**.

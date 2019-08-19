@@ -14,6 +14,7 @@ var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');
 var RgbLightbulb       = require('./rgb-lightbulb.js');
 var Outlet             = require('./outlet.js');
+var Blind             = require('./blind.js');
 var Gateway            = require('./gateway.js');
 var Ikea               = require('node-tradfri-client');
 
@@ -69,6 +70,7 @@ module.exports = class Platform extends Gateway {
         else {
             expose['outlets'] = true;
             expose['lightbulbs'] = true;
+            expose['blinds'] = true;
         }
 
         for (var id in this.gateway.devices) {
@@ -109,6 +111,15 @@ module.exports = class Platform extends Gateway {
     
                     }
     
+                    break;
+                }
+
+                case Ikea.AccessoryTypes.blind: {
+
+                    // Make sure the device has a plugList                    
+                    if (device.blindList && expose['blinds'])
+                        supportedDevice = new Blind(this, device);
+                    
                     break;
                 }
             }
