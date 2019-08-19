@@ -116,7 +116,7 @@ module.exports = class Platform extends Gateway {
 
                 case Ikea.AccessoryTypes.blind: {
 
-                    // Make sure the device has a plugList                    
+                    // Make sure the device has a blindList                    
                     if (device.blindList && expose['blinds'])
                         supportedDevice = new Blind(this, device);
                     
