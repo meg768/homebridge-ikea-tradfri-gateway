@@ -49,7 +49,7 @@ Configure your **~/.homebridge/config.json** with the following platform.
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
             "host": "192.168.xxx.xxx",
-            "securityCode" : "xxxxxxx",
+            "securityCode" : "this-is-found-on-the-back-of-the-gateway",
             "expose": ["lightbulbs", "outlets", "blinds"]
         }
     ]
