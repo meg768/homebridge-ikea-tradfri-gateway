@@ -56,15 +56,17 @@ Configure your **~/.homebridge/config.json** with the following platform.
 ```
 
 This module auto detects the ip address of the IKEA gateway. If by
-some reason you would like to access a specific address, merge the following to 
+some reason you would like to access a specific gateway, merge the following into 
 **~/.homebridge/config.json**.
 
 
 ```javascript
 {
+    ...
     "platforms": [
         {
-            "host": "the-ip-address-of-ikea-gateway"
+            ...
+            "host": "ip-address-of-ikea-gateway"
         }
     ]
 }
