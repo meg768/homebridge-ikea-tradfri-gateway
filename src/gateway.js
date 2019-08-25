@@ -1,16 +1,4 @@
-"use strict";
-
-var Events           = require('events');
-var Path             = require('path');
-var isObject         = require('yow/is').isObject;
-var isString         = require('yow/is').isString;
-var isFunction       = require('yow/is').isFunction;
-var sprintf          = require('yow/sprintf');
-var isString         = require('yow/is').isString;
-var Timer            = require('yow/timer');
-var Ikea             = require('node-tradfri-client');
-
-
+var Ikea = require('node-tradfri-client');
 
 module.exports = class Gateway  {
 
@@ -27,25 +15,31 @@ module.exports = class Gateway  {
         if (process.env.IKEA_TRADFRI_HOST)
             config.host = process.env.IKEA_TRADFRI_HOST;
 
-        if (config.host == undefined)
-            throw new Error('Must specify a host in ~/.homebridge/config.json.');
-
         if (config.securityCode == undefined)
             throw new Error('The security code from the back of the IKEA gateway must be specified in ~/.homebridge/config.json.')
 
         this.config         = config;
         this.log            = log;
-        this.gateway        = new Ikea.TradfriClient(config.host);
+        this.gateway        = null;
+    }
 
-        this.gateway.on('device updated', (device) => {
-            this.deviceUpdated(device);
-        });
+    getHostName() {
+        return new Promise((resolve, reject) => {
 
-        this.gateway.on('group updated', (group) => {
-            this.groupUpdated(group);
-        });
+            if (this.config.host != undefined)
+                resolve(this.config.host);
+            else {
+                this.log('Discovering gateway...');
 
-
+                Ikea.discoverGateway().then((discovery) => {
+                    this.log('Discovered host "%s"', discovery.name);
+                    resolve(discovery.name);
+                })
+                .catch((error) => {
+                    reject(error);
+                })
+            }
+        });        
     }
 
     enablePing() {
@@ -66,6 +60,22 @@ module.exports = class Gateway  {
 
     connect() {
         return new Promise((resolve, reject) => {
+            Promise.resolve().then(() => {
+                return this.getHostName();
+            })
+
+            .then((host) => {
+                this.gateway = new Ikea.TradfriClient(host);
+
+                this.gateway.on('device updated', (device) => {
+                    this.deviceUpdated(device);
+                });
+        
+                this.gateway.on('group updated', (group) => {
+                    this.groupUpdated(group);
+                });
+                return Promise.resolve();
+            })
 
             Promise.resolve().then(() => {
                 return this.gateway.authenticate(this.config.securityCode);
@@ -100,8 +110,6 @@ module.exports = class Gateway  {
             })
         });
     }
-
-
 
     deviceUpdated(device) {
     }
