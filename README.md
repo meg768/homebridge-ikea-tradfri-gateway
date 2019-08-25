@@ -47,20 +47,19 @@ Configure your **~/.homebridge/config.json** with the following platform.
         {
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
-            "host": "192.168.xxx.xxx",
+            "host": "the-ip-address-of-ikea-gateway-but-this-is-not-required",
             "securityCode" : "this-is-found-on-the-back-of-the-gateway",
             "expose": ["lightbulbs", "outlets", "blinds"]
         }
     ]
 }
 
-**Note** - The **host**
 ```
 ## What This Plugin Does
 
-This plugin simply extracts all lightbulbs currently in use by the IKEA Trådfri
+This plugin simply extracts all lightbulbs, outlets and blinds currently in use by the IKEA Trådfri
 Gateway and exposes them to HomeKit and you have the ability to turn the
-bulbs on or off. And, of course, you may change the device names and
+devices on or off. And, of course, you may change the device names and
 group them into rooms on your iPhone or iPad.
 
 The following IKEA devices are supported
@@ -74,10 +73,8 @@ The following IKEA devices are supported
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 
-
 ## To Do
 
-* Find out gateway version and act accordingly
 * Support motion sensors and remote controls if possible
 * Handle reboot or connection break of gateway
 
@@ -88,7 +85,8 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
                The security code must now be present in **~/.homebrige/config.json**.
 * 2019-01-19 - Added support for outlets.
 * 2019-08-19 - Added support for blinds.
-* 2019-08-25 - Added support for auto detecting the IKEA gateway.
+* 2019-08-25 - Added support for auto detecting the IKEA gateway. 
+               The **host** property in **~/.homebridge/config.json** is no longer required.
 
 ## Useful Links
 
