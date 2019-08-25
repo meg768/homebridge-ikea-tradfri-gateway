@@ -32,7 +32,6 @@ If you are having permission problems during install, try this
 
 Configure your **~/.homebridge/config.json** with the following platform.
 
-
 ```javascript
 {
     "bridge": {
@@ -53,10 +52,9 @@ Configure your **~/.homebridge/config.json** with the following platform.
             "expose": ["lightbulbs", "outlets", "blinds"]
         }
     ]
-
-
 }
 
+**Note** - The **host**
 ```
 ## What This Plugin Does
 
@@ -85,11 +83,12 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 
 ## Bugfixes/Updates
 
-* 2018-01-29 -  Can now have accessories with the same name in the IKEA app
-* 2018-02-04 -  Updated to work with gateway version 1.3.14.
-                The security code must now be present in **~/.homebrige/config.json**.
-* 2019-01-19 -  Added support for outlets.
-* 2019-08-19 -  Added support for blinds.
+* 2018-01-29 - Can now have accessories with the same name in the IKEA app
+* 2018-02-04 - Updated to work with gateway version 1.3.14.
+               The security code must now be present in **~/.homebrige/config.json**.
+* 2019-01-19 - Added support for outlets.
+* 2019-08-19 - Added support for blinds.
+* 2019-08-25 - Added support for auto detecting the IKEA gateway.
 
 ## Useful Links
 

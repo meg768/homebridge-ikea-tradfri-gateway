@@ -77,7 +77,7 @@ module.exports = class Gateway  {
                 return Promise.resolve();
             })
 
-            Promise.resolve().then(() => {
+            .then(() => {
                 return this.gateway.authenticate(this.config.securityCode);
             })
             .then((credentials) => {
