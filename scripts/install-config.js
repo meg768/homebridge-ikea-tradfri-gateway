@@ -17,6 +17,13 @@ function install() {
     if (!homebridge.platforms)
         homebridge.platforms = [];
 
+    if (!config.accessories)
+        config.accessories = [];
+
+    if (!config.platforms)
+        config.platforms = [];
+        
+
     config.accessories.forEach((accessory) => {
 
         // Remove existing
