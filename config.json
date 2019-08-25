@@ -13,7 +13,6 @@
         {
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
-            "!host": "gw-b8d7af2a9d45",
             "securityCode" : "security-code-from-the-back-of-gateway",
             "expose": ["lightbulbs", "outlets", "blinds"]
         }
