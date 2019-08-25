@@ -47,7 +47,6 @@ Configure your **~/.homebridge/config.json** with the following platform.
         {
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
-            "host": "the-ip-address-of-ikea-gateway-but-this-is-not-required",
             "securityCode" : "this-is-found-on-the-back-of-the-gateway",
             "expose": ["lightbulbs", "outlets", "blinds"]
         }
@@ -55,6 +54,24 @@ Configure your **~/.homebridge/config.json** with the following platform.
 }
 
 ```
+
+This module auto detects the ip address of the IKEA gateway. If by
+some reason you would like to access a specific address, merge the following to 
+**~/.homebridge/config.json**.
+
+
+```javascript
+{
+    "platforms": [
+        {
+            "host": "the-ip-address-of-ikea-gateway"
+        }
+    ]
+}
+
+```
+
+
 ## What This Plugin Does
 
 This plugin simply extracts all lightbulbs, outlets and blinds currently in use by the IKEA Trådfri
