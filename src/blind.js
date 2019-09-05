@@ -7,16 +7,18 @@ module.exports = class Blind extends Device {
         super(platform, device);
 
         this.blind = new this.Service.WindowCovering(this.name, this.uuid);
-
+        this.lowBatteryLimit = platform.config.lowBatteryLimit || 10;
         this.addService('blind', this.blind);
         this.enablePosition();
         this.enableTargetPosition();
         this.previousPosition = this.position;
+        this.updateBatteryLevel()
     }
 
     deviceChanged(device) {
         super.deviceChanged();
         this.updatePosition();
+        this.updateBatteryLevel();
         this.estimateTargetPositionIfNeeded();
         this.previousPosition = this.position;
     }
@@ -84,5 +86,12 @@ module.exports = class Blind extends Device {
         this.targetPosition = position;
         this.log('Updating target position to %s on blind \'%s\'', this.targetPosition, this.name);
         targetPosition.updateValue(this.targetPosition);
+    }
+
+    updateBatteryLevel() {
+        var lowBatteryStatus = this.blind.getCharacteristic(this.Characteristic.StatusLowBattery);
+        this.batteryLevel = this.device.deviceInfo.battery
+        this.log('Updating batery level to %s on blind \'%s\'', this.batteryLevel, this.name);
+        lowBatteryStatus.updateValue(this.batteryLevel <= this.lowBatteryLimit);
     }
 };
