@@ -7,16 +7,19 @@ module.exports = class Blind extends Device {
         super(platform, device);
 
         this.blind = new this.Service.WindowCovering(this.name, this.uuid);
-
+        this.services.battery = new this.Service.BatteryService(`${this.name} Battery`);
+        this.lowBatteryLimit = platform.config.lowBatteryLimit || 10;
         this.addService('blind', this.blind);
         this.enablePosition();
         this.enableTargetPosition();
+        this.enableBattery();
         this.previousPosition = this.position;
     }
 
     deviceChanged(device) {
         super.deviceChanged();
         this.updatePosition();
+        this.updateBatteryLevel();
         this.estimateTargetPositionIfNeeded();
         this.previousPosition = this.position;
     }
@@ -38,6 +41,19 @@ module.exports = class Blind extends Device {
             this.setTargetPosition(value, callback);
         });
         this.updateTargetPosition(this.position);
+    }
+
+    enableBattery() {
+        var batteryLevel = this.services.battery.getCharacteristic(this.Characteristic.BatteryLevel);
+        batteryLevel.on('get', (callback) => {
+            callback(null, this.device.deviceInfo.battery);
+        });
+
+        var lowBatteryStatus = this.services.battery.getCharacteristic(this.Characteristic.StatusLowBattery);
+        lowBatteryStatus.on('get', (callback) => {
+            let battery = this.device.deviceInfo.battery
+            callback(null, battery <= this.lowBatteryLimit);
+        });   
     }
 
     setTargetPosition(value, callback) {
@@ -84,5 +100,12 @@ module.exports = class Blind extends Device {
         this.targetPosition = position;
         this.log('Updating target position to %s on blind \'%s\'', this.targetPosition, this.name);
         targetPosition.updateValue(this.targetPosition);
+    }
+
+    updateBatteryLevel() {
+        var lowBatteryStatus = this.blind.getCharacteristic(this.Characteristic.StatusLowBattery);
+        this.batteryLevel = this.device.deviceInfo.battery
+        this.log('Updating batery level to %s on blind \'%s\'', this.batteryLevel, this.name);
+        lowBatteryStatus.updateValue(this.batteryLevel <= this.lowBatteryLimit);
     }
 };
