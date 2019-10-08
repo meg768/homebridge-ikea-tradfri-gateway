@@ -14,7 +14,8 @@
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
             "securityCode" : "security-code-from-the-back-of-gateway",
-            "expose": ["lightbulbs", "outlets", "blinds"]
+            "expose": ["lightbulbs", "outlets", "blinds"],
+            "ignore": ["65537", "65540", "65550"]
         }
     ]
 
