@@ -124,6 +124,10 @@ module.exports = class Platform extends Gateway {
                 }
             }
 
+            if (this.config.ignore && this.config.ignore.indexOf(id) > -1) {
+                supportedDevice = false;
+            }
+            
             if (supportedDevice) {
                 this.devices[device.instanceId] = supportedDevice;
             }
