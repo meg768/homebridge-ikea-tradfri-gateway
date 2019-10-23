@@ -1,8 +1,4 @@
 "use strict";
-var sprintf     = require('yow/sprintf');
-var isString    = require('yow/is').isString;
-var isNumber    = require('yow/is').isNumber;
-var Timer       = require('yow/timer');
 var Lightbulb   = require('./lightbulb.js');
 
 const COLOR_MIN = 140;

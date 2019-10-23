@@ -1,14 +1,6 @@
 "use strict";
 
-var Events           = require('events');
-var Path             = require('path');
-var isObject         = require('yow/is').isObject;
-var isString         = require('yow/is').isString;
-var isFunction       = require('yow/is').isFunction;
-var sprintf          = require('yow/sprintf');
-var isString         = require('yow/is').isString;
-var isArray          = require('yow/is').isArray;
-var Timer            = require('yow/timer');
+var isArray          = require('yow/isArray');
 
 var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');

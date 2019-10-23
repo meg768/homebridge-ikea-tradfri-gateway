@@ -29,7 +29,7 @@
 		"color-convert": "^1.9.3",
 		"dotenv": "^4.0.0",
 		"node-tradfri-client": "^1.6.0",
-		"yow": "^1.0.104"
+		"yow": "^1.0.107"
 	},
 	"author": "",
 	"license": "ISC",

@@ -1,7 +1,7 @@
 "use strict";
 
 var Path = require('path');
-var isString = require('yow/is').isString;
+var isString = require('yow/isString');
 
 module.exports = function(homebridge) {
 
