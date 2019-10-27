@@ -7,7 +7,7 @@
 		"npm-version-patch": "npm version patch",
 		"git-commit": "git add -A && git commit -m '-' && git push",
 		"goto-github": "open https://github.com/meg768/homebridge-ikea-tradfri-gateway",
-		"publish-to-npm": "npm run increase-package-version && npm run git-commit && npm publish",
+		"publish-to-npm": "npm run npm-version-patch && npm run git-commit && npm publish",
 		"goto-npm": "open https://www.npmjs.com/package/homebridge-ikea-tradfri-gateway"
 	},
 	"repository": {
