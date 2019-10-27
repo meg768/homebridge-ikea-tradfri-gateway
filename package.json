@@ -6,7 +6,7 @@
 	"scripts": {
 		"npm-version-patch": "npm version patch",
 		"npm-publish": "npm publish",
-		"git-commit": "git add -A && git commit -m '-' && git push",
+		"git-push": "git add -A && git commit -m '-' && git push",
 		"git-reset": "git reset --hard HEAD",
 		"goto-github": "open https://github.com/meg768/homebridge-ikea-tradfri-gateway",
 		"goto-npm": "open https://www.npmjs.com/package/homebridge-ikea-tradfri-gateway"
