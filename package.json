@@ -39,6 +39,6 @@
 	},
 	"homepage": "https://github.com/meg768/homebridge-ikea-tradfri-gateway#readme",
 	"devDependencies": {
-		"increase-package-version": "^1.0.3"
+
 	}
 }
