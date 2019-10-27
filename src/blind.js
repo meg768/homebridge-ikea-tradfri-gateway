@@ -105,7 +105,7 @@ module.exports = class Blind extends Device {
     updateBatteryLevel() {
         var lowBatteryStatus = this.blind.getCharacteristic(this.Characteristic.StatusLowBattery);
         this.batteryLevel = this.device.deviceInfo.battery
-        this.log('Updating batery level to %s on blind \'%s\'', this.batteryLevel, this.name);
+        this.log('Updating battery level to %s on blind \'%s\'', this.batteryLevel, this.name);
         lowBatteryStatus.updateValue(this.batteryLevel <= this.lowBatteryLimit);
     }
 };
