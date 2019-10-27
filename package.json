@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"Xincrease-package-version": "node ./scripts/increase-package-version.js",
-		"increase-package-version": "increase-package-version",
+		"increase-package-version": "node increase-package-version",
 		"git-commit": "git add -A && git commit -m '-' && git push",
 		"goto-github": "open https://github.com/meg768/homebridge-ikea-tradfri-gateway",
 		"publish-to-npm": "npm run increase-package-version && npm run git-commit && npm publish",
