@@ -1,6 +1,6 @@
 {
 	"name": "homebridge-ikea-tradfri-gateway",
-	"version": "1.2.14",
+	"version": "1.2.15",
 	"description": "homebridge-ikea-tradfri-gateway",
 	"main": "index.js",
 	"scripts": {
@@ -38,7 +38,5 @@
 		"url": "https://github.com/meg768/homebridge-ikea-tradfri-gateway/issues"
 	},
 	"homepage": "https://github.com/meg768/homebridge-ikea-tradfri-gateway#readme",
-	"devDependencies": {
-
-	}
+	"devDependencies": {}
 }
