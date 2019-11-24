@@ -83,6 +83,7 @@ module.exports = class Platform extends Gateway {
                 }
 
                 case Ikea.AccessoryTypes.lightbulb: {
+
                     // Make sure the device has a lightList and is to be exposed
                     if (device.lightList && (expose['lightbulbs'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-lightbulbs']))) {
                         var spectrum = device.lightList[0]._spectrum;
