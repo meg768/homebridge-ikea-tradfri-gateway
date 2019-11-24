@@ -84,7 +84,8 @@ module.exports = class Platform extends Gateway {
                     // Make sure the device has a lightList
                     if (device.lightList && expose['lightbulbs']) {
                         var spectrum = device.lightList[0]._spectrum;
-                        console.log(device.manufacturer)
+                        this.log('LIGHTBULB MANUFACTURER');
+                        this.log(device.manufacturer);
 
                         switch(spectrum) {
                             case 'white': {
