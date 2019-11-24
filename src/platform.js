@@ -75,17 +75,16 @@ module.exports = class Platform extends Gateway {
             switch (device.type) {
                 case Ikea.AccessoryTypes.plug: {
 
-                    // Make sure the device has a plugList                    
-                    if (device.plugList && (expose['outlets'] || (device.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-outlets'])))
+                    // Make sure the device has a plugList and is to be exposed
+                    if (device.plugList && (expose['outlets'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-outlets'])))
                         supportedDevice = new Outlet(this, device);
                     
                     break;
                 }
 
                 case Ikea.AccessoryTypes.lightbulb: {
-                    this.log(device.deviceInfo.manufacturer)
-                    // Make sure the device has a lightList
-                    if (device.lightList && (expose['lightbulbs'] || (device.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-lightbulbs']))) {
+                    // Make sure the device has a lightList and is to be exposed
+                    if (device.lightList && (expose['lightbulbs'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-lightbulbs']))) {
                         var spectrum = device.lightList[0]._spectrum;
 
                         switch(spectrum) {
@@ -111,8 +110,8 @@ module.exports = class Platform extends Gateway {
 
                 case Ikea.AccessoryTypes.blind: {
 
-                    // Make sure the device has a blindList                    
-                    if (device.blindList && (expose['blinds'] || (device.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-blinds'])))
+                    // Make sure the device has a blindList and is to be exposed
+                    if (device.blindList && (expose['blinds'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-blinds'])))
                         supportedDevice = new Blind(this, device);
                     
                     break;
