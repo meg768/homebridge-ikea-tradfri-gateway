@@ -76,7 +76,7 @@ module.exports = class Platform extends Gateway {
                 case Ikea.AccessoryTypes.plug: {
 
                     // Make sure the device has a plugList                    
-                    if (device.plugList && (expose['outlets'] || (device.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-outlets']))) {
+                    if (device.plugList && (expose['outlets'] || (device.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-outlets'])))
                         supportedDevice = new Outlet(this, device);
                     
                     break;
