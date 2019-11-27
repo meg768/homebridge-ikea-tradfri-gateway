@@ -54,6 +54,8 @@ Configure your **~/.homebridge/config.json** with the following platform.
 }
 
 ```
+> You can also only expose non-IKEA devices (which are not exposed to HomeKit with the native integration) with:  
+> "expose: ["non-ikea-lightbulbs", "non-ikea-outlets", "non-ikea-blinds"]
 
 This module auto detects the ip address of the IKEA gateway. If by
 some reason you would like to access a specific gateway, merge the following into 
