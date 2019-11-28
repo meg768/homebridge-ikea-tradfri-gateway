@@ -32,8 +32,14 @@ module.exports = class Gateway  {
                 this.log('Discovering gateway...');
 
                 Ikea.discoverGateway().then((discovery) => {
-                    this.log('Discovered host "%s"', discovery.name);
-                    resolve(discovery.name);
+                    if (discovery && discovery.name) {
+                        this.log('Discovered host "%s"', discovery.name);
+                        resolve(discovery.name);
+                    }
+                    else {
+                        reject(new Error('Cannot discover gateway address. Sorry, you have to enter the IP address yourself in ~/.homebridge/config.json.'));    
+                    }
+
                 })
                 .catch((error) => {
                     reject(error);
