@@ -52,7 +52,7 @@ module.exports = class Gateway  {
 
         setInterval(() => {
             this.gateway.ping().then(() => {
-                this.log('Ping OK.');
+                // this.log('Ping OK.');
             })
             .catch((error) => {
                 this.log('Ping failed!');
