@@ -1,7 +1,9 @@
 # homebridge-ikea-tradfri-gateway
+
 ----------------------
 **This module is obsolete and no longer supported**
 ----------------------
+
 Yet another HomeBridge plugin for the IKEA Trådfri Gateway.
 
 There are several other npm modules that connect to the IKEA Trådfri Gateway.
