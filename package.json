@@ -29,7 +29,7 @@
 	"dependencies": {
 		"color-convert": "^1.9.3",
 		"dotenv": "^4.0.0",
-		"node-tradfri-client": "^1.6.0",
+		"node-tradfri-client": "^2.1.8",
 		"yow": "^1.0.107"
 	},
 	"author": "",
