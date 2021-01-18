@@ -27,10 +27,10 @@
 		"homebridge": ">=0.2.0"
 	},
 	"dependencies": {
-		"color-convert": "^1.9.3",
-		"dotenv": "^4.0.0",
+		"color-convert": "^2.0.1",
+		"dotenv": "^8.2.0",
 		"node-tradfri-client": "^2.1.8",
-		"yow": "^1.0.107"
+		"yow": "^1.0.108"
 	},
 	"author": "",
 	"license": "ISC",
