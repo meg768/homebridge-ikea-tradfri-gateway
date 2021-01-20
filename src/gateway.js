@@ -74,7 +74,11 @@ module.exports = class Gateway  {
             })
 
             .then((host) => {
-                this.gateway = new Ikea.TradfriClient(host);
+                if (this.config.clientOptions != undefined) {
+                    this.gateway = new Ikea.TradfriClient(host, this.config.clientOptions);
+                } else {
+                    this.gateway = new Ikea.TradfriClient(host);
+                }
 
                 this.gateway.on('device updated', (device) => {
                     this.deviceUpdated(device);
