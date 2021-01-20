@@ -15,8 +15,11 @@ module.exports = class Gateway  {
         if (process.env.IKEA_TRADFRI_HOST)
             config.host = process.env.IKEA_TRADFRI_HOST;
 
-        if (config.securityCode == undefined)
+        if (config.securityCode == undefined && (config.psk == undefined))
             throw new Error('The security code from the back of the IKEA gateway must be specified in ~/.homebridge/config.json.')
+
+        if (config.securityCode == undefined && (config.psk == undefined || config.identity == undefined))
+            throw new Error('You have to supply an identity and the corresponding psk!')
 
         this.config         = config;
         this.log            = log;
@@ -84,7 +87,11 @@ module.exports = class Gateway  {
             })
 
             .then(() => {
-                return this.gateway.authenticate(this.config.securityCode);
+	        if (this.config.identity != undefined && this.config.psk != undefined) {
+	            return { "identity": this.config.identity, "psk": this.config.psk };
+	        } else {
+                    return this.gateway.authenticate(this.config.securityCode);
+	        }
             })
             .then((credentials) => {
                 return this.gateway.connect(credentials.identity, credentials.psk);
