@@ -1,7 +1,8 @@
 # homebridge-ikea-tradfri-gateway
 
-**This module is obsolete and no longer supported**
-----------------------------------------------------
+Please note that this module is no longer supported by me.
+However, I will continue to merge pull request but I
+do not have the ability to test anything.
 
 Yet another HomeBridge plugin for the IKEA Trådfri Gateway.
 
