@@ -115,6 +115,7 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 * 2019-08-25 - Added support for auto detecting the IKEA gateway. 
                The **host** property in **~/.homebridge/config.json** is no longer required.
 * 2019-11-27 - Added support for non IKEA devices. 
+* 2021-05-30 - Updated dependencies in package.json
 
 ## Useful Links
 
