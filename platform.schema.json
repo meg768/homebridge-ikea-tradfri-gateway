@@ -1,0 +1,35 @@
+{
+    "plugin_alias": "Ikea Trådfri Gateway",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "platform": {
+                "title": "Platform",
+                "type": "string",
+                "const": "Ikea Trådfri Gateway",
+                "readOnly": true
+            },
+            "name": {
+                "title": "Name",
+                "type": "string",
+                "const": "Ikea Trådfri Gateway",
+                "readOnly": true
+            },
+            "securityCode": {
+                "title": "Type in the security code, found on the back of the gateway",
+                "type": "string"
+            },
+            "host": {
+                "title": "IP Adress of the Gateway, found in the IP Table of your Router",
+                "type": "string"
+            },
+            "expose": {
+                "title": "Expose device types",
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+} 
