@@ -61,7 +61,7 @@ module.exports = class Blind extends Device {
         this.position = value;
         this.targetPosition = value;
         this.platform.gateway.operateBlind(this.device, {
-            position: 100 - value
+            position: value
         })
         .then(() => {
             if (callback)
@@ -90,7 +90,7 @@ module.exports = class Blind extends Device {
     updatePosition() {
         var blind = this.device.blindList[0];
         var position = this.blind.getCharacteristic(this.Characteristic.CurrentPosition);
-        this.position = 100 - blind.position;
+        this.position = blind.position;
         this.log('Updating position to %s on blind \'%s\'', this.position, this.name);
         position.updateValue(this.position);
     }
