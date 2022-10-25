@@ -1,19 +1,25 @@
 {
+	"private": true,
 	"name": "homebridge-ikea-tradfri-gateway",
-	"version": "1.2.34",
+	"displayName": "STYC Trådfri",
+	"version": "2.0.0 beta",
 	"description": "homebridge-ikea-tradfri-gateway",
 	"main": "index.js",
 	"scripts": {
+		"lint": "eslint src/**.ts --max-warnings=0",
+		"watch": "npm run build && npm link && nodemon",
+		"build": "rimraf ./dist && tsc",
+		"prepublishOnly": "npm run lint && npm run build",
 		"npm-version-patch": "npm version patch",
 		"npm-publish": "npm publish",
 		"git-commit": "git add -A && git commit -m '-' && git push",
 		"git-reset": "git reset --hard HEAD",
-		"goto-github": "open https://github.com/meg768/homebridge-ikea-tradfri-gateway",
+		"goto-github": "open https://github.com/styc-co-uk/homebridge-ikea-tradfri-gateway",
 		"goto-npm": "open https://www.npmjs.com/package/homebridge-ikea-tradfri-gateway"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/meg768/homebridge-ikea-tradfri-gateway.git"
+		"url": "git+https://github.com/styc-co-uk/homebridge-ikea-tradfri-gateway.git"
 	},
 	"keywords": [
 		"homebrige",
@@ -35,8 +41,18 @@
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/meg768/homebridge-ikea-tradfri-gateway/issues"
+		"url": "https://github.com/styc-co-uk/homebridge-ikea-tradfri-gateway/issues"
 	},
-	"homepage": "https://github.com/meg768/homebridge-ikea-tradfri-gateway#readme",
-	"devDependencies": {}
+	"homepage": "https://github.com/styc-co-uk/homebridge-ikea-tradfri-gateway#readme",
+	"devDependencies": {
+		"@types/node": "^16.10.9",
+		"@typescript-eslint/eslint-plugin": "^5.0.0",
+		"@typescript-eslint/parser": "^5.0.0",
+		"eslint": "^8.0.1",
+		"homebridge": "^1.3.5",
+		"nodemon": "^2.0.13",
+		"rimraf": "^3.0.2",
+		"ts-node": "^10.3.0",
+		"typescript": "^4.4.4"
+	}
 }
