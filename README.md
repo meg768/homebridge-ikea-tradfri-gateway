@@ -52,14 +52,14 @@ Configure your **~/.homebridge/config.json** with the following platform.
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
             "securityCode" : "this-is-found-on-the-back-of-the-gateway",
-            "expose": ["lightbulbs", "outlets", "blinds"]
+            "expose": ["lightbulbs", "outlets", "blinds", "airPurifiers"]
         }
     ]
 }
 
 ```
 > You can also only expose non-IKEA devices (which are not exposed to HomeKit with the native integration) with:  
-> "expose: ["non-ikea-lightbulbs", "non-ikea-outlets", "non-ikea-blinds"]
+> "expose: ["non-ikea-lightbulbs", "non-ikea-outlets", "non-ikea-blinds", "non-ikea-airPurifiers"]
 
 This module auto detects the ip address of the IKEA gateway. If by
 some reason you would like to access a specific gateway, merge the following into 
@@ -96,6 +96,7 @@ The following IKEA devices are supported
 - Warm white bulbs with temperature control
 - Outlets
 - Blinds
+- Air purifier (BETA)
 
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
@@ -104,6 +105,7 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 
 * Support motion sensors and remote controls if possible
 * Handle reboot or connection break of gateway
+* Refining purifier function
 
 ## Bugfixes/Updates
 
@@ -116,6 +118,7 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
                The **host** property in **~/.homebridge/config.json** is no longer required.
 * 2019-11-27 - Added support for non IKEA devices. 
 * 2021-05-30 - Updated dependencies in package.json
+* 2022-10-26 - Added support for air purifiers.
 
 ## Useful Links
 
