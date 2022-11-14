@@ -36,7 +36,7 @@ If you are having permission problems during install, try this
 
 Configure your **~/.homebridge/config.json** with the following platform.
 
-```javascript
+```json
 {
     "bridge": {
         "name": "Trådfri",
@@ -52,7 +52,8 @@ Configure your **~/.homebridge/config.json** with the following platform.
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
             "securityCode" : "this-is-found-on-the-back-of-the-gateway",
-            "expose": ["lightbulbs", "outlets", "blinds"]
+            "lowBatteryLimit": 50,
+            "expose": ["lightbulbs", "outlets", "blinds", "remotes", "shortcut-buttons"]
         }
     ]
 }
@@ -66,7 +67,7 @@ some reason you would like to access a specific gateway, merge the following int
 **~/.homebridge/config.json**.
 
 
-```javascript
+```json
 {
     ...
     "platforms": [
