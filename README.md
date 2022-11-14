@@ -97,6 +97,7 @@ The following IKEA devices are supported
 - Warm white bulbs with temperature control
 - Outlets
 - Blinds
+- Remotes (including shortcut buttons)
 
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
@@ -117,6 +118,7 @@ you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
                The **host** property in **~/.homebridge/config.json** is no longer required.
 * 2019-11-27 - Added support for non IKEA devices. 
 * 2021-05-30 - Updated dependencies in package.json
+* 2022-11-13 - Added support for remotes and shortcut buttons for low battery notifications.
 
 ## Useful Links
 
