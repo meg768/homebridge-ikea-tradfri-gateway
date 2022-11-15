@@ -124,7 +124,7 @@ module.exports = class Platform extends Gateway {
 
                 case Ikea.AccessoryTypes.remote:
                 case Ikea.AccessoryTypes.slaveRemote: {
-                    console.log(device.type, device);
+                    
                     // Make sure the device has a remoteList and is to be exposed
                     const isShortcutButton = device.deviceInfo.modelNumber === 'TRADFRI SHORTCUT Button';
                     if (device.switchList && ((isShortcutButton && expose['shortcut-buttons']) || (!isShortcutButton && expose['remotes'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-remotes']))))
