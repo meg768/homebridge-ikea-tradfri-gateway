@@ -1,6 +1,7 @@
 {
 	"name": "homebridge-ikea-tradfri-gateway",
-	"version": "1.2.34",
+	"displayName": "IKEA Trådfri Gateway",
+	"version": "1.2.35",
 	"description": "homebridge-ikea-tradfri-gateway",
 	"main": "index.js",
 	"scripts": {
@@ -29,8 +30,8 @@
 	"dependencies": {
 		"color-convert": "^2.0.1",
 		"dotenv": "^8.2.0",
-		"node-tradfri-client": "^3.0.1",
-		"yow": "^1.0.108"
+		"node-tradfri-client": "^3.1.1",
+		"yow": "^1.0.118"
 	},
 	"author": "",
 	"license": "ISC",
