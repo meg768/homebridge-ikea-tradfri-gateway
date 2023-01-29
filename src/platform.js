@@ -6,6 +6,8 @@ var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');
 var RgbLightbulb       = require('./rgb-lightbulb.js');
 var Outlet             = require('./outlet.js');
+var Remote             = require('./remote.js');
+var Blind              = require('./blind.js');
 var Blind              = require('./blind.js');
 var AirPurifier        = require('./air-purifier.js');
 var Gateway            = require('./gateway.js');
@@ -64,11 +66,13 @@ module.exports = class Platform extends Gateway {
             expose['outlets'] = true;
             expose['lightbulbs'] = true;
             expose['blinds'] = true;
+            expose['remotes'] = true;
             expose['airPurifiers'] = true;
+            expose['shortcut-buttons'] = true;
             expose['non-ikea-outlets'] = false;
             expose['non-ikea-lightbulbs'] = false;
             expose['non-ikea-blinds'] = false;
-            expose['non-ikea-airPurifiers'] = false;
+            expose['non-ikea-remotes'] = false;
         }
 
         for (var id in this.gateway.devices) {
@@ -117,7 +121,18 @@ module.exports = class Platform extends Gateway {
                     // Make sure the device has a blindList and is to be exposed
                     if (device.blindList && (expose['blinds'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-blinds'])))
                         supportedDevice = new Blind(this, device);
+
+                    break;
+                }
+
+                case Ikea.AccessoryTypes.remote:
+                case Ikea.AccessoryTypes.slaveRemote: {
                     
+                    // Make sure the device has a remoteList and is to be exposed
+                    const isShortcutButton = device.deviceInfo.modelNumber === 'TRADFRI SHORTCUT Button';
+                    if (device.switchList && ((isShortcutButton && expose['shortcut-buttons']) || (!isShortcutButton && expose['remotes'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-remotes']))))
+                        supportedDevice = new Remote(this, device);
+
                     break;
                 }
 

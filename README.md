@@ -36,7 +36,7 @@ If you are having permission problems during install, try this
 
 Configure your **~/.homebridge/config.json** with the following platform.
 
-```javascript
+```json
 {
     "bridge": {
         "name": "Trådfri",
@@ -67,6 +67,7 @@ some reason you would like to access a specific gateway, merge the following int
 **~/.homebridge/config.json**.
 
 ```javascript
+
 {
     ...
     "platforms": [
@@ -88,35 +89,35 @@ group them into rooms on your iPhone or iPad.
 
 The following IKEA devices are supported
 
--   Standard white bulbs
--   RGB bulbs
--   Warm white bulbs with temperature control
--   Outlets
--   Blinds
--   Air purifier (BETA)
+- Standard white bulbs
+- RGB bulbs
+- Warm white bulbs with temperature control
+- Outlets
+- Blinds
+- Remotes (including shortcut buttons)
+- Air purifier (BETA)
 
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 
 ## To Do
 
--   Support motion sensors and remote controls if possible
--   Handle reboot or connection break of gateway
--   Refining purifier function
+- Support motion sensors and remote controls if possible
+- Handle reboot or connection break of gateway
+- Refining purifier function
 
 ## Bugfixes/Updates
 
--   2018-01-29 - Can now have accessories with the same name in the IKEA app
--   2018-02-04 - Updated to work with gateway version 1.3.14.
-    The security code must now be present in **~/.homebrige/config.json**.
--   2019-01-19 - Added support for outlets.
--   2019-08-19 - Added support for blinds.
--   2019-08-25 - Added support for auto detecting the IKEA gateway.
-    The **host** property in **~/.homebridge/config.json** is no longer required.
--   2019-11-27 - Added support for non IKEA devices.
--   2021-05-30 - Updated dependencies in package.json
--   2022-11-13 - Added support for remotes and shortcut buttons for low battery notifications.
--   2022-11-24 - Added support for air purifiers.
+- 2018-01-29 - Can now have accessories with the same name in the IKEA app
+- 2018-02-04 - Updated to work with gateway version 1.3.14. The security code must now be present in **~/.homebrige/config.json**.
+- 2019-01-19 - Added support for outlets.
+- 2019-08-19 - Added support for blinds.
+- 2019-08-25 - Added support for auto detecting the IKEA gateway. The **host** property in **~/.homebridge/config.json** is no longer required.
+- 2019-11-27 - Added support for non IKEA devices. 
+- 2021-05-30 - Updated dependencies in package.json
+- 2022-11-13 - Added support for remotes and shortcut buttons for low battery notifications.
+- 2022-11-24 - Added support for air purifiers.
+- 2023-01-29 - Merge of conflicting pull requests.
 
 ## Useful Links
 
