@@ -8,9 +8,9 @@ do not have the ability to test anything.**
 
 There are several other npm modules that connect to the IKEA Trådfri Gateway.
 
-* [homebridge-tradfri-plugin](https://www.npmjs.com/package/homebridge-tradfri-plugin)
-* [homebridge-tradfri](https://www.npmjs.com/package/homebridge-tradfri)
-* [homebridge-ikea](https://www.npmjs.com/package/homebridge-ikea)
+-   [homebridge-tradfri-plugin](https://www.npmjs.com/package/homebridge-tradfri-plugin)
+-   [homebridge-tradfri](https://www.npmjs.com/package/homebridge-tradfri)
+-   [homebridge-ikea](https://www.npmjs.com/package/homebridge-ikea)
 
 This plugin uses the npm module
 [node-tradfri-client](https://www.npmjs.com/package/node-tradfri-client)
@@ -52,22 +52,22 @@ Configure your **~/.homebridge/config.json** with the following platform.
             "platform": "Ikea Trådfri Gateway",
             "name": "Ikea Trådfri Gateway",
             "securityCode" : "this-is-found-on-the-back-of-the-gateway",
-            "lowBatteryLimit": 50,
-            "expose": ["lightbulbs", "outlets", "blinds", "remotes", "shortcut-buttons"]
+            "expose": ["lightbulbs", "outlets", "blinds", "remotes", "airPurifiers", "shortcut-buttons"]
         }
     ]
 }
 
 ```
+
 > You can also only expose non-IKEA devices (which are not exposed to HomeKit with the native integration) with:  
-> "expose: ["non-ikea-lightbulbs", "non-ikea-outlets", "non-ikea-blinds"]
+> "expose: ["non-ikea-lightbulbs", "non-ikea-outlets", "non-ikea-blinds", "non-ikea-airPurifiers"]
 
 This module auto detects the ip address of the IKEA gateway. If by
-some reason you would like to access a specific gateway, merge the following into 
+some reason you would like to access a specific gateway, merge the following into
 **~/.homebridge/config.json**.
 
+```javascript
 
-```json
 {
     ...
     "platforms": [
@@ -80,15 +80,12 @@ some reason you would like to access a specific gateway, merge the following int
 
 ```
 
-
 ## What This Plugin Does
 
 This plugin simply extracts all lightbulbs, outlets and blinds currently in use by the IKEA Trådfri
 Gateway and exposes them to HomeKit and you have the ability to turn the
 devices on or off. And, of course, you may change the device names and
 group them into rooms on your iPhone or iPad.
-
-
 
 The following IKEA devices are supported
 
@@ -98,28 +95,30 @@ The following IKEA devices are supported
 - Outlets
 - Blinds
 - Remotes (including shortcut buttons)
+- Air purifier (BETA)
 
 After this, start **homebridge**, scan the presented code with your iPhone, and hopefully
 you will se all you IKEA lightbulbs in your iPhone/iPad Home app.
 
 ## To Do
 
-* Support motion sensors and remote controls if possible
-* Handle reboot or connection break of gateway
+- Support motion sensors and remote controls if possible
+- Handle reboot or connection break of gateway
+- Refining purifier function
 
 ## Bugfixes/Updates
 
-* 2018-01-29 - Can now have accessories with the same name in the IKEA app
-* 2018-02-04 - Updated to work with gateway version 1.3.14.
-               The security code must now be present in **~/.homebrige/config.json**.
-* 2019-01-19 - Added support for outlets.
-* 2019-08-19 - Added support for blinds.
-* 2019-08-25 - Added support for auto detecting the IKEA gateway. 
-               The **host** property in **~/.homebridge/config.json** is no longer required.
-* 2019-11-27 - Added support for non IKEA devices. 
-* 2021-05-30 - Updated dependencies in package.json
-* 2022-11-13 - Added support for remotes and shortcut buttons for low battery notifications.
+- 2018-01-29 - Can now have accessories with the same name in the IKEA app
+- 2018-02-04 - Updated to work with gateway version 1.3.14. The security code must now be present in **~/.homebrige/config.json**.
+- 2019-01-19 - Added support for outlets.
+- 2019-08-19 - Added support for blinds.
+- 2019-08-25 - Added support for auto detecting the IKEA gateway. The **host** property in **~/.homebridge/config.json** is no longer required.
+- 2019-11-27 - Added support for non IKEA devices. 
+- 2021-05-30 - Updated dependencies in package.json
+- 2022-11-13 - Added support for remotes and shortcut buttons for low battery notifications.
+- 2022-11-24 - Added support for air purifiers.
+- 2023-01-29 - Merge of conflicting pull requests.
 
 ## Useful Links
 
-* https://www.reddit.com/r/tradfri/
+-   https://www.reddit.com/r/tradfri/
