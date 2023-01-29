@@ -6,7 +6,8 @@ var Lightbulb          = require('./lightbulb.js');
 var WarmWhiteLightbulb = require('./warm-white-lightbulb.js');
 var RgbLightbulb       = require('./rgb-lightbulb.js');
 var Outlet             = require('./outlet.js');
-var Blind             = require('./blind.js');
+var Blind              = require('./blind.js');
+var AirPurifier        = require('./air-purifier.js');
 var Gateway            = require('./gateway.js');
 var Ikea               = require('node-tradfri-client');
 
@@ -63,9 +64,11 @@ module.exports = class Platform extends Gateway {
             expose['outlets'] = true;
             expose['lightbulbs'] = true;
             expose['blinds'] = true;
+            expose['airPurifiers'] = true;
             expose['non-ikea-outlets'] = false;
             expose['non-ikea-lightbulbs'] = false;
             expose['non-ikea-blinds'] = false;
+            expose['non-ikea-airPurifiers'] = false;
         }
 
         for (var id in this.gateway.devices) {
@@ -114,6 +117,15 @@ module.exports = class Platform extends Gateway {
                     // Make sure the device has a blindList and is to be exposed
                     if (device.blindList && (expose['blinds'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-blinds'])))
                         supportedDevice = new Blind(this, device);
+                    
+                    break;
+                }
+
+                case Ikea.AccessoryTypes.airPurifier: {
+
+                    // Make sure the device has a airPurifierList and is to be exposed
+                    if (device.airPurifierList && (expose['airPurifiers'] || (device.deviceInfo.manufacturer !== 'IKEA of Sweden' && expose['non-ikea-airPurifiers'])))
+                        supportedDevice = new AirPurifier(this, device);
                     
                     break;
                 }
