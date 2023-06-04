@@ -1,7 +1,7 @@
 {
 	"name": "homebridge-ikea-tradfri-gateway",
 	"displayName": "IKEA Trådfri Gateway",
-	"version": "1.2.39",
+	"version": "1.2.41",
 	"description": "homebridge-ikea-tradfri-gateway",
 	"main": "index.js",
 	"scripts": {
@@ -30,7 +30,7 @@
 	"dependencies": {
 		"color-convert": "^2.0.1",
 		"dotenv": "^8.2.0",
-		"node-tradfri-client": "^3.1.1",
+		"node-tradfri-client": "^3.2.0",
 		"yow": "^1.0.118"
 	},
 	"author": "",
@@ -38,6 +38,5 @@
 	"bugs": {
 		"url": "https://github.com/meg768/homebridge-ikea-tradfri-gateway/issues"
 	},
-	"homepage": "https://github.com/meg768/homebridge-ikea-tradfri-gateway#readme",
-	"devDependencies": {}
+	"homepage": "https://github.com/meg768/homebridge-ikea-tradfri-gateway#readme"
 }
