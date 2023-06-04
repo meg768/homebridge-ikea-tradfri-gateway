@@ -1,0 +1,45 @@
+{
+    "pluginType": "platform",
+    "pluginAlias": "Tradfri",
+    "singular": true,
+    "schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "title": "Name",
+                "type": "string",
+                "default": "Ikea Trådfri Gateway",
+                "required": true
+            },
+            "securityCode": {
+                "title": "Type in the security code, found on the back of the gateway",
+                "type": "string",
+                "required": true,
+                "minLength": 16,
+                "maxLength": 16
+            },
+            "host": {
+                "title": "IP Adress of the Gateway, found in the IP Table of your Router",
+                "type": "string",
+                "format": "ipv4"
+            },
+            "lowBatteryLimit": {
+                "title": "Low battery limit in percentage for remotes and blinds",
+                "type": "integer",
+                "default": 10,
+                "minimum": 1,
+                "maximum": 99
+            },
+            "expose": {
+                "title": "Expose device types",
+                "type": "array",
+                "uniqueItems": true,
+                "default": ["lightbulbs", "outlets", "blinds", "remotes", "airPurifiers", "shortcut-buttons"],
+                "items": {
+                    "type": "string",
+                    "enum": ["lightbulbs", "outlets", "blinds", "remotes", "airPurifiers", "shortcut-buttons", "non-ikea-lightbulbs", "non-ikea-outlets", "non-ikea-blinds", "non-ikea-airPurifiers"]
+                }
+            }
+        }
+    }
+} 
