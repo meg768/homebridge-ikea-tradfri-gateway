@@ -22,3 +22,29 @@
 
 
 }
+{
+    "bridge": {
+    "name": "Trådfri",
+    "username": "AA:22:3D:E3:CE:57",
+    "port": 51826,
+    "pin": "031-45-123"
+    },
+    "description": "This is an example configuration file",
+    "platforms": [
+    {
+    "platform": "Ikea Trådfri Gateway",
+    "name": "Ikea Trådfri Gateway",
+    "securityCode" : "this-is-found-on-the-back-of-the-gateway",
+    "expose": ["lightbulbs", "outlets", "blinds"]
+    }
+    ]
+    }
+    {
+        ...
+        "platforms": [
+        {
+        ...
+        "host": "ip-address-of-ikea-gateway"
+        }
+        ]
+        }
